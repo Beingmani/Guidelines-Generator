@@ -6,6 +6,7 @@ import { Toaster, toast } from "react-hot-toast";
 import DropDown, { VibeType } from "../components/DropDown";
 import Footer from "../components/Footer";
 import LoadingDots from "../components/LoadingDots";
+import chroma from "chroma-js";
 
 const Home: NextPage = () => {
   const [loading, setLoading] = useState(false);
@@ -159,14 +160,13 @@ const Home: NextPage = () => {
 
                 const colorRegex = /#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})/g;
                 const colors = generatedBios.match(colorRegex);
-                const defaultColor = "#FFFFFF";
-                const colorCodes = colors && colors[i % colors.length] ? colors[i % colors.length] : defaultColor;
-               
+                const backgroundColor = colors ? colors[i % colors.length] : '#FFFFFF';
+      const textColor = chroma.contrast(backgroundColor, 'white') > 4.5 ? 'white' : 'black';
                     return (
 
                       <div
                         className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                        style={{backgroundColor: colorCodes}}
+                        style={{backgroundColor: backgroundColor, color: textColor }}
                         onClick={() => {
                           navigator.clipboard.writeText(generatedBio);
                           toast("guideline copied to clipboard", {
