@@ -6,6 +6,7 @@ import { Toaster, toast } from "react-hot-toast";
 import DropDown, { VibeType } from "../components/DropDown";
 import Footer from "../components/Footer";
 import LoadingDots from "../components/LoadingDots";
+import chroma from "chroma-js";
 
 const Home: NextPage = () => {
   const [loading, setLoading] = useState(false);
