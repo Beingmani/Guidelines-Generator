@@ -21,11 +21,9 @@ const Home: NextPage = () => {
     }
   };
 
-  const prompt=`Design a set of UI/UX guidelines for an app that helps ${bio} having focus users as ATSI (Aboriginal and Torres Strait Islander) individuals. 
-  The guidelines should be based on the category ${vibe} and description of the app. 
-  Make sure the guidelines are with in 120 characters with headings. Consider factors such as 
-  Iconography, accessibility, cultural sensitivity, and user preferences while creating the guidelines.${bio.slice(-1) === "." ? "" : "."}`
-
+  const prompt=`I want you to act as a UX/UI designer. You need to choose Primary, secondary and tertiary colors for the app that are in compliance with ATSI as target users with perfect reasoning and hex code.
+  My request is "${bio}" with category ${vibe}. 
+  lable them as 1. 2. colour code : reasoning. limit the reasoning to 100 characters${bio.slice(-1) === "." ? "" : "."}`
 
 
   const generateBio = async (e: any) => {
@@ -52,6 +50,8 @@ const Home: NextPage = () => {
       return;
     }
 
+    
+
     const reader = data.getReader();
     const decoder = new TextDecoder();
     let done = false;
@@ -75,7 +75,7 @@ const Home: NextPage = () => {
 
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-12 sm:mt-20">
         <h1 className="sm:text-6xl text-4xl max-w-[708px] font-bold text-slate-900">
-          Generate Guidelines for you app that are in ATSI compliance
+          Generate Colours for your app that are in compliance with ATSI individuals
         </h1>
      
         <div className="max-w-xl w-full">
@@ -117,7 +117,7 @@ const Home: NextPage = () => {
               className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
               onClick={(e) => generateBio(e)}
             >
-              Generate your guidelines 🤌🏻 
+              Generate your colours 🤌🏻 
             </button>
           )}
           {loading && (
@@ -146,14 +146,27 @@ const Home: NextPage = () => {
                   Your generated guidelines
                 </h2>
               </div>
-              <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
+              
+
+         
+
+
+              <div className="grid grid-cols-3 gap-4 place-items-start justify-items-stretch max-w-4xl mx-auto">
                 {generatedBios
                   .substring(generatedBios.indexOf("1") + 3)
                   .split(/\d+\./)
-                  .map((generatedBio) => {
+                  .map((generatedBio, i) => {
+
+                const colorRegex = /#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})/g;
+                const colors = generatedBios.match(colorRegex);
+                const defaultColor = "#FFFFFF";
+                const colorCodes = colors && colors[i % colors.length] ? colors[i % colors.length] : defaultColor;
+               
                     return (
+
                       <div
                         className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                        style={{backgroundColor: colorCodes}}
                         onClick={() => {
                           navigator.clipboard.writeText(generatedBio);
                           toast("guideline copied to clipboard", {
@@ -167,6 +180,8 @@ const Home: NextPage = () => {
                     );
                   })}
               </div>
+
+
             </>
           )}
         </div>
