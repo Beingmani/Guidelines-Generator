@@ -22,11 +22,13 @@ const Home: NextPage = () => {
     }
   };
 
-  const prompt = `I want you to act as a UX/UI designer. You need to choose Primary, secondary and tertiary colors for the app that are in compliance with ATSI as target users with perfect reasoning and hex code.
-  My request is "${bio}" with category ${vibe}. 
-  lable them as 1. 2. colour code : reasoning. limit the reasoning to 100 characters${
-    bio.slice(-1) === "." ? "" : "."
-  }`;
+  const prompt=`Design a set of UI/UX guidelines for an app that helps ${bio} having focus users as ATSI 
+  (Aboriginal and Torres Strait Islander) individuals. 
+  The guidelines should be based on the category ${vibe} and description of the app. 
+  Make sure the guidelines are with in 120 characters with headings. Consider factors such as 
+  Iconography, accessibility, cultural sensitivity, and user preferences while creating the guidelines.${bio.slice(-1) === "." ? "" : "."}`
+
+
 
   const generateBio = async (e: any) => {
     e.preventDefault();
@@ -67,7 +69,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex max-w-5xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
+    <div className=" flex max-w-5xl mx-auto flex-col items-center justify-center py-2 min-h-screen" >
       <Head>
         <title>Guidelines Generator</title>
         <link rel="icon" href="/favicon.ico" />
@@ -75,10 +77,9 @@ const Home: NextPage = () => {
 
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-12 sm:mt-20">
         <h1 className="sm:text-6xl text-4xl max-w-[708px] font-bold text-slate-900">
-          Generate Colours for your app that are in compliance with ATSI
-          individuals
+          Generate Guidelines for you app that are in ATSI compliance
         </h1>
-
+     
         <div className="max-w-xl w-full">
           <div className="flex mt-10 items-center space-x-3">
             <Image
@@ -101,7 +102,9 @@ const Home: NextPage = () => {
             onChange={(e) => setBio(e.target.value)}
             rows={4}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5"
-            placeholder={"app that helps users to share photos"}
+            placeholder={
+              "app that helps users to share photos"
+            }
           />
           <div className="flex mb-5 items-center space-x-3">
             <Image src="/2-black.png" width={30} height={30} alt="1 icon" />
@@ -116,7 +119,7 @@ const Home: NextPage = () => {
               className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
               onClick={(e) => generateBio(e)}
             >
-              Generate your colours 🤌🏻
+              Generate your guidelines 🤌🏻 
             </button>
           )}
           {loading && (
@@ -142,31 +145,17 @@ const Home: NextPage = () => {
                   className="sm:text-4xl text-3xl font-bold text-slate-900 mx-auto"
                   ref={bioRef}
                 >
-                  Your generated colours
+                  Your generated guidelines
                 </h2>
               </div>
-
-              <div className="grid grid-cols-3 gap-4 place-items-start justify-items-stretch max-w-4xl mx-auto">
+              <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
                 {generatedBios
                   .substring(generatedBios.indexOf("1") + 3)
                   .split(/\d+\./)
-                  .map((generatedBio, i) => {
-                    const colorRegex = /#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})/g;
-                    const colors = generatedBios.match(colorRegex);
-                    const backgroundColor = colors
-                      ? colors[i % colors.length]
-                      : "#FFFFFF";
-                    const textColor =
-                      chroma.contrast(backgroundColor, "white") > 4.5
-                        ? "white"
-                        : "black";
+                  .map((generatedBio) => {
                     return (
                       <div
                         className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                        style={{
-                          backgroundColor: backgroundColor,
-                          color: textColor,
-                        }}
                         onClick={() => {
                           navigator.clipboard.writeText(generatedBio);
                           toast("guideline copied to clipboard", {
