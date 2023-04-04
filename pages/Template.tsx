@@ -11,7 +11,8 @@ import chroma from "chroma-js";
 const Home: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const [bio, setBio] = useState("");
-  const [vibe, setVibe] = useState<VibeType>("Art and Design");
+  const [vibe, setVibe] = useState("");
+
   const [generatedBios, setGeneratedBios] = useState<String>("");
 
   const bioRef = useRef<null | HTMLDivElement>(null);
@@ -69,7 +70,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="relative flex flex-col p-30 sm:py-12 bg-[#040617]">
+    <div className="flex flex-col items-center justify-center py-2 min-h-screen sm:py-12 bg-[#040617]">
       <img
         src="/Beams-new.png"
         alt=""
@@ -78,7 +79,7 @@ const Home: NextPage = () => {
         height="100%"
       />
 
-      <div className="relative z-50 container max-width: 1280px flex flex-col mx-auto items-center">
+      <div className="relative container max-width: 1280px flex flex-col mx-auto items-center">
         {/* Top Headline */}
         <div className="mx-auto rounded-lg max-w-6xl w-full px-4 py-8 mb-20">
           <section className="p-8">
@@ -99,7 +100,7 @@ const Home: NextPage = () => {
             </div>
           </section>
         </div>
-        <div className=" mx-auto rounded-lg max-w-6xl flex items-center justify-center w-full px-4 py-8 mb-20 ">
+        <div className=" mx-auto z-50 rounded-lg max-w-6xl flex items-center justify-center w-full px-4 py-8 mb-20 ">
           <div className="max-w-6xl w-full ">
             <div className="border-2 border-[#2F323B] p-8 rounded-xl mb-10">
               <div className="flex items-center space-x-3">
@@ -158,18 +159,25 @@ const Home: NextPage = () => {
 
               {/* Enter a paragraph */}
 
-              <div className="block mt-14 w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]">
-  <DropDown vibe={vibe} setVibe={(newVibe) => setVibe(newVibe)} />
-</div>
+              
+              <input
+  type="text"
+  value={vibe}
+  onChange={(e) => setVibe(e.target.value)}
+  className="w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
+             placeholder-gray-700 placeholder-opacity-100 "
+  placeholder="Social, Photo Sharing, Entertainment"
+/>
+
 
             </div>
             {!loading && (
-              <button
-                className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
-                onClick={(e) => generateBio(e)}
-              >
-                Generate your guidelines 🤌🏻
-              </button>
+
+<button type="button" className="text-white 
+bg-gradient-to-r from-purple-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 
+focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm 
+px-5 py-2.5 text-center mr-2 mb-2"  onClick={(e) => generateBio(e)}>Generate your Guidelines 🤌🏻</button>
+            
             )}
             {loading && (
               <button
@@ -179,7 +187,7 @@ const Home: NextPage = () => {
                 <LoadingDots color="white" style="large" />
               </button>
             )}
-<Toaster
+        <Toaster
           position="top-center"
           reverseOrder={false}
           toastOptions={{ duration: 2000 }}
