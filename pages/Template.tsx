@@ -7,6 +7,8 @@ import DropDown, { VibeType } from "../components/DropDown";
 import Footer from "../components/Footer";
 import LoadingDots from "../components/LoadingDots";
 import chroma from "chroma-js";
+import React, { Fragment } from "react";
+import { ClipboardIcon, RocketLaunchIcon } from "@heroicons/react/24/outline";
 
 const Home: NextPage = () => {
   const [loading, setLoading] = useState(false);
@@ -23,13 +25,16 @@ const Home: NextPage = () => {
     }
   };
 
-  const prompt = `Design a set of UI/UX guidelines for an app that helps ${bio} having focus users as ATSI 
+  const prompt = `Design a set of 4 of UI/UX guidelines for an app that helps ${bio} having focus users as ATSI 
     (Aboriginal and Torres Strait Islander) individuals. 
     The guidelines should be based on the category ${vibe} and description of the app. 
-    Make sure the guidelines are with in 120 characters with headings. Consider factors such as 
-    Iconography, accessibility, cultural sensitivity, and user preferences while creating the guidelines.${
+    Make sure the guidelines are with in 60 characters labled as 1.Iconography followed by : and description. Consider factors such as 
+    Iconography, accessibility, cultural sensitivity, and user preferences while creating the guidelines. Additionally summarize them in 4 emoji${
       bio.slice(-1) === "." ? "" : "."
     }`;
+  console.log({
+    prompt,
+  });
 
   const generateBio = async (e: any) => {
     e.preventDefault();
@@ -153,88 +158,146 @@ const Home: NextPage = () => {
               </div>
               <div className=" flex items-center space-x-3">
                 <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
-                  Enter the category of the application 
+                  Enter the category of the application
                 </p>
               </div>
 
               {/* Enter a paragraph */}
 
-              
               <input
-  type="text"
-  value={vibe}
-  onChange={(e) => setVibe(e.target.value)}
-  className="w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
+                type="text"
+                value={vibe}
+                onChange={(e) => setVibe(e.target.value)}
+                className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
              placeholder-gray-700 placeholder-opacity-100 "
-  placeholder="Social, Photo Sharing, Entertainment"
-/>
-
-
+                placeholder="Social, Photo Sharing, Entertainment"
+              />
             </div>
             {!loading && (
-
-<button type="button" className="text-white 
-bg-gradient-to-r from-purple-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 
+              <div className="flex justify-center p-8">
+                <button
+                  type="button"
+                  className=" text-white bg-gradient-to-r from-purple-400 to-blue-600 hover:bg-gradient-to-br focus:ring-4 
 focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm 
-px-5 py-2.5 text-center mr-2 mb-2"  onClick={(e) => generateBio(e)}>Generate your Guidelines 🤌🏻</button>
-            
+px-5 py-5 text-center mr-2 mb-2"
+                  onClick={(e) => generateBio(e)}
+                >
+                  Generate your Guidelines 🤌🏻
+                </button>
+              </div>
             )}
             {loading && (
-              <button
-                className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
-                disabled
-              >
-                <LoadingDots color="white" style="large" />
-              </button>
-            )}
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-          toastOptions={{ duration: 2000 }}
-        />
-        <hr className="h-px bg-gray-700 border-1 dark:bg-gray-700" />
-        <div className="space-y-10 my-10">
-          {generatedBios && (
-            <>
-              <div>
-                <h2
-                  className="sm:text-4xl text-3xl font-bold text-slate-900 mx-auto"
-                  ref={bioRef}
+              <div className="flex justify-center">
+                <button
+                  className="bg-gradient-to-r from-purple-400 to-blue-600 rounded-xl text-white font-medium px-5 py-5 sm:mt-10 mt-8 hover:bg-black/80 w-1/4"
+                  disabled
                 >
-                  Your generated guidelines
-                </h2>
+                  <LoadingDots color="white" style="large" />
+                </button>
               </div>
-              <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
-                {generatedBios
-                  .substring(generatedBios.indexOf("1") + 3)
-                  .split(/\d+\./)
-                  .map((generatedBio) => {
-                    return (
-                      <div
-                        className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                        onClick={() => {
-                          navigator.clipboard.writeText(generatedBio);
-                          toast("guideline copied to clipboard", {
-                            icon: "✂️",
-                          });
-                        }}
-                        key={generatedBio}
-                      >
-                        <p>{generatedBio}</p>
-                      </div>
-                    );
-                  })}
-              </div>
-            </>
-          )}
-          </div>
+            )}
+            <Toaster
+              position="top-center"
+              reverseOrder={false}
+              toastOptions={{ duration: 2000 }}
+            />
+            <div className="inline-flex items-center justify-center w-full">
+              <hr className="w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+              <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white bg-[#040617]">
+                Limited Credits available, please use it appropriately :D
+              </span>
+            </div>
+            <div className="space-y-10 my-10">
+              {generatedBios && (
+                <>
+                  <div>
+                    <h2
+                      className="text-5xl p-4 w-auto md:w-full font-bold text-center mb-4 bg-gradient-to-r from-purple-300 to-blue-400 bg-clip-text text-transparent bg-clip-text text-transparent"
+                      ref={bioRef}
+                    >
+                      Your generated guidelines
+                    </h2>
+                  </div>
 
+                  <div className="flex justify-left w-full border-gray-300 rounded-xl border-2 bg-[#040617] p-12 border-[#2F323B]">
+                    <div className="space-y-8 flex flex-col items-center justify-center w-full mx-auto">
+                      {generatedBios
+                        .substring(generatedBios.indexOf("1") + 3)
+                        .split(/\d+\./)
+                        .map((generatedBio) => {
+                          if (generatedBio) {
+                            const [heading, description] =
+                              generatedBio.split(":");
+                            const emojiRegex = /[\p{Emoji}]/gu;
+                            const emojis = generatedBio.match(emojiRegex);
+                          
+                            const cleanedDescription = description?.replace(
+                              /\p{Emoji}/gu,
+                              ""
+                            );
+                            console.log(cleanedDescription);
+                            return (
+                              <div
+                                className="rounded-xl bg-[#10131C] text-left border-[#2F323B] w-full p-8 text-xl sm:text-xl font-light text-gray-500 shadow-md p-4 hover:bg-[#040617] transition"
+                                key={generatedBio}
+                              >
+                                <p className="text-white font-medium py-4">
+                                  {heading}
+                                </p>
+                                {cleanedDescription && (
+                                  <p className="text-gray-400 font-light">
+                                    {cleanedDescription}
+                                  </p>
+                                )}
+                                <div className="flex justify-end mt-8">
+                                  
+                                  <button
+                                    className="p-4 bg-[#10131C] mr-4 border-2 border-[#2F323B] text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none flex items-center"
+                                    onClick={() => {
+                                      navigator.clipboard.writeText(
+                                        generatedBio
+                                      );
+                                      toast("Text copied to clipboard", {
+                                        icon: "📋",
+                                      });
+                                    }}
+                                  >
+                                    <ClipboardIcon className="h-5 w-5" />
+                                  </button>
+                                  <button
+                                    className="p-4 bg-[#10131C] border-2 border-[#2F323B] text-sm indent-1 text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none flex items-center"
+                                    onClick={() => {
+                                      const emojisText = emojis
+                                        ? "Emojis: " + emojis.join(" ")
+                                        : "";
+                                      toast(
+                                        "Summarized text in Emojis\n" +
+                                          emojisText,
+                                        {
+                                          icon: "🚀",
+                                        }
+                                      );
+                                    }}
+                                  >
+                                    <RocketLaunchIcon className="h-5 w-5" />
+                                    Summarize text
+                                  </button>
+                                  <p id="emojisummarizer">
+                                  {emojis}
+                                  </p>
+                                </div>
+                              </div>
+                            );
+                          }
+                          return null;
+                        })}
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
-
-       
-          
-       
       </div>
       <div className="absolute inset-0 bg-[url(/Grid-new.png)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
     </div>
