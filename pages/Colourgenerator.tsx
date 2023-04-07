@@ -27,6 +27,9 @@ const Home: NextPage = () => {
   lable them as 1. 2. colour code : reasoning. limit the reasoning to 100 characters${
     bio.slice(-1) === "." ? "" : "."
   }`;
+  console.log({
+    prompt,
+  });
 
   const generateBio = async (e: any) => {
     e.preventDefault();

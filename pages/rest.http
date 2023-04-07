@@ -1,5 +1,7 @@
-POST http://localhost:3002/api/generate
+POST http://localhost:3001/api/generate
 
 {
-    "prompt": "Design a set of 2 of UI/UX guidelines for an app that helps  having focus users as ATSI \n    (Aboriginal and Torres Strait Islander) individuals. \n    The guidelines should be based on the category  and description of the app. \n    Make sure the guidelines are with in 60 characters labled as 1.Iconography followed by : and description. Consider factors such as \n    Iconography, accessibility, cultural sensitivity, and user preferences while creating the guidelines. Additionally summarize them in 4 emoji."
+    "prompt": "I want you to act as a UX/UI designer. You need to choose Primary, secondary and tertiary colors for the app that are in compliance with ATSI as target users with perfect reasoning and hex code.
+  My request is "" with category Art and Design. 
+  lable them as 1. 2. colour code : reasoning. limit the reasoning to 100 characters."
 }

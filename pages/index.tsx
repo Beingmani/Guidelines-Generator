@@ -15,7 +15,7 @@ const features = [
       description:
         'Generate design guidelines for your respective app in seconds that are in compliance with ATSI commuities',
       icon: BookOpenIcon,
-      link : 'https://guidelines-generator.vercel.app/Guidelinegenerator',
+      link : 'https://guidelines-generator.vercel.app/Template',
     },
     {
       name: 'Color Generator',
