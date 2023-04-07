@@ -86,7 +86,7 @@ const Home: NextPage = () => {
 
       <div className="relative container max-width: 1280px flex flex-col mx-auto items-center">
         {/* Top Headline */}
-        <div className="mx-auto rounded-lg max-w-6xl w-full px-4 py-8 mb-20">
+        <div className="mx-auto z-50 rounded-lg max-w-6xl w-full px-4 py-8 mb-20">
           <section className="p-8">
             <div className="flex flex-col items-center w-full sm:w-auto">
               <div
@@ -219,7 +219,7 @@ px-5 py-5 text-center mr-2 mb-2"
                     </h2>
                   </div>
 
-                  <div className="flex justify-left w-full border-gray-300 rounded-xl border-2 bg-[#040617] p-12 border-[#2F323B]">
+                  <div className="flex justify-left w-full border-gray-300 rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
                     <div className="space-y-8 flex flex-col items-center justify-center w-full mx-auto">
                       {generatedBios
                         .substring(generatedBios.indexOf("1") + 3)
@@ -237,7 +237,7 @@ px-5 py-5 text-center mr-2 mb-2"
                             const emojiId = `emojisummarizer-${index}`;
                             return (
                               <div
-                                className="rounded-xl bg-[#10131C] text-left border-[#2F323B] w-full p-8 text-xl sm:text-xl font-light text-gray-500 shadow-md p-4 hover:bg-[#040617] transition"
+                                className="rounded-xl bg-[#10131C] text-left border-[#2F323B] w-full p-6 sm:p-8 text-xl sm:text-xl font-light text-gray-500 shadow-md p-4 hover:bg-[#040617] transition"
                                 key={generatedBio}
                               >
                                 <p className="text-white font-medium py-4">
@@ -248,7 +248,13 @@ px-5 py-5 text-center mr-2 mb-2"
                                     {cleanedDescription}
                                   </p>
                                 )}
-                                <div className="flex justify-end mt-8">
+                                <div className="flex justify-between items-center mt-8 ">
+                                  <div className="flex ">
+                                <p> </p><p id={emojiId} style={{ display: "none" }}>
+                                    {emojis}
+                                  </p>
+                                  </div>
+                                  <div className="flex justify-items ">
                                   <button
                                     className="p-4 bg-[#10131C] mr-4 border-2 border-[#2F323B] text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none flex items-center"
                                     onClick={() => {
@@ -281,11 +287,9 @@ px-5 py-5 text-center mr-2 mb-2"
                                     }}
                                   >
                                     <RocketLaunchIcon className="h-5 w-5" />
-                                    Summarize text
+                                    <span className="hidden md:inline">Summarize text</span>
                                   </button>
-                                  <p id={emojiId} style={{ display: "none" }}>
-                                    {emojis}
-                                  </p>
+                                  </div>
                                 </div>
                               </div>
                             );
