@@ -199,7 +199,7 @@ px-5 py-5 text-center mr-2 mb-2"
             />
             <div className="inline-flex items-center justify-center w-full">
               <hr className="w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-              <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white bg-[#040617]">
+              <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 left-1/2 dark:text-white bg-[#040617]">
                 Limited Credits available, please use it appropriately :D
               </span>
             </div>
@@ -215,9 +215,9 @@ px-5 py-5 text-center mr-2 mb-2"
                     </h2>
                   </div>
 
-                  <div className="flex justify-left w-full border-gray-300 rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
+                  <div className="flex justify-left w-full  rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
                     <div className="space-y-8 flex flex-col items-center justify-center w-full mx-auto">
-                      <div className="grid grid-cols-3 gap-4 place-items-start justify-items-stretch max-w-4xl mx-auto">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 place-items-start justify-items-stretch w-1/3 sm:w-full">
                         {generatedBios
                           .substring(generatedBios.indexOf("1") + 3)
                           .split(/\d+\./)
@@ -235,7 +235,7 @@ px-5 py-5 text-center mr-2 mb-2"
                             const hexCodes = generatedBio.match(colorRegex);
                             return (
                               <div key={i}>
-                                <div className="grid border p-4 rounded grid-cols-3 gap-2">
+                                <div className="grid rounded-[16px] text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B] p-4 rounded grid-cols-3 gap-2">
                                   {hexCodes &&
                                     hexCodes.map((hex, j) => (
                                         <div>
@@ -254,7 +254,7 @@ px-5 py-5 text-center mr-2 mb-2"
                                       >
                         
                                       </div>
-                                      <p className="text-white">{hex}</p>
+                                      <p className="text-white flex justify-center mt-4">{hex}</p>
                                       </div>
                                     ))}
                                 </div>
