@@ -25,7 +25,7 @@ const Home: NextPage = () => {
     }
   };
 
-  const prompt = `Generate three sets of primary, secondary, and tertiary color based on the description and category provided. The description is '${bio}' and the category is '${vibe}'. Please provide only the hex codes for the color of each set, labeled as 1. and 2. respectively. The colors should be in compliance with ATSI communities.${
+  const prompt = `Generate three sets of primary, secondary, and tertiary color based on the description and category provided. Please provide only the hex codes for the color of each set, labeled as 1. and 2. respectively. The description is '${bio}' and the category is '${vibe}'.The colors should be in compliance with ATSI communities.${
     bio.slice(-1) === "." ? "" : "."
   }`;
   console.log({
@@ -217,7 +217,7 @@ px-5 py-5 text-center mr-2 mb-2"
 
                   <div className="flex justify-left w-full  rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
                     <div className="space-y-8 flex flex-col items-center justify-center w-full mx-auto">
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 place-items-start justify-items-stretch w-1/3 sm:w-full">
+                      <div className="grid md:grid-cols-3 grid-cols-1 gap-4 place-items-start justify-items-stretch w-full">
                         {generatedBios
                           .substring(generatedBios.indexOf("1") + 3)
                           .split(/\d+\./)
@@ -235,7 +235,7 @@ px-5 py-5 text-center mr-2 mb-2"
                             const hexCodes = generatedBio.match(colorRegex);
                             return (
                               <div key={i}>
-                                <div className="grid rounded-[16px] text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B] p-4 rounded grid-cols-3 gap-2">
+                                <div className="grid rounded-[16px] text-white font-medium bg-[#10131C] border-2 border-[#2F323B] p-4 rounded grid-cols-3 gap-2">
                                   {hexCodes &&
                                     hexCodes.map((hex, j) => (
                                         <div>
@@ -252,7 +252,6 @@ px-5 py-5 text-center mr-2 mb-2"
                                             });
                                           }}
                                       >
-                        
                                       </div>
                                       <p className="text-white flex justify-center mt-4">{hex}</p>
                                       </div>
