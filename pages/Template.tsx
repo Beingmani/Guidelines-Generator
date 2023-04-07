@@ -25,11 +25,11 @@ const Home: NextPage = () => {
     }
   };
 
-  const prompt = `Design a set of 4 of UI/UX guidelines for an app that helps ${bio} having focus users as ATSI 
+  const prompt = `Design a set of 2 of UI/UX guidelines for an app that helps ${bio} having focus users as ATSI 
     (Aboriginal and Torres Strait Islander) individuals. 
     The guidelines should be based on the category ${vibe} and description of the app. 
     Make sure the guidelines are with in 60 characters labled as 1.Iconography followed by : and description. Consider factors such as 
-    Iconography, accessibility, cultural sensitivity, and user preferences while creating the guidelines. Additionally summarize them in 4 emoji${
+    Iconography, accessibility, cultural sensitivity, and user preferences while creating the guidelines. Additionally summarize them in exactly 4 emoji${
       bio.slice(-1) === "." ? "" : "."
     }`;
   console.log({
@@ -224,18 +224,17 @@ px-5 py-5 text-center mr-2 mb-2"
                       {generatedBios
                         .substring(generatedBios.indexOf("1") + 3)
                         .split(/\d+\./)
-                        .map((generatedBio) => {
+                        .map((generatedBio, index) => {
                           if (generatedBio) {
                             const [heading, description] =
                               generatedBio.split(":");
                             const emojiRegex = /[\p{Emoji}]/gu;
                             const emojis = generatedBio.match(emojiRegex);
-                          
                             const cleanedDescription = description?.replace(
                               /\p{Emoji}/gu,
                               ""
                             );
-                            console.log(cleanedDescription);
+                            const emojiId = `emojisummarizer-${index}`;
                             return (
                               <div
                                 className="rounded-xl bg-[#10131C] text-left border-[#2F323B] w-full p-8 text-xl sm:text-xl font-light text-gray-500 shadow-md p-4 hover:bg-[#040617] transition"
@@ -250,7 +249,6 @@ px-5 py-5 text-center mr-2 mb-2"
                                   </p>
                                 )}
                                 <div className="flex justify-end mt-8">
-                                  
                                   <button
                                     className="p-4 bg-[#10131C] mr-4 border-2 border-[#2F323B] text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none flex items-center"
                                     onClick={() => {
@@ -277,19 +275,21 @@ px-5 py-5 text-center mr-2 mb-2"
                                           icon: "🚀",
                                         }
                                       );
+                                      document.getElementById(
+                                        emojiId
+                                      )!.style.display = "block";
                                     }}
                                   >
                                     <RocketLaunchIcon className="h-5 w-5" />
                                     Summarize text
                                   </button>
-                                  <p id="emojisummarizer">
-                                  {emojis}
+                                  <p id={emojiId} style={{ display: "none" }}>
+                                    {emojis}
                                   </p>
                                 </div>
                               </div>
                             );
                           }
-                          return null;
                         })}
                     </div>
                   </div>
