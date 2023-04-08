@@ -1,7 +1,5 @@
 POST http://localhost:3002/api/generate
 
 {
-    "prompt": "I want you to act as a UX/UI designer. You need to choose Primary, secondary and tertiary colors for the app that are in compliance with ATSI as target users with perfect reasoning and hex code.
-  My request is "" with category Art and Design. 
-  lable them as 1. 2. colour code : reasoning. limit the reasoning to 100 characters."
+    "prompt": "I need you to act as a UX designer and identify the 3 pain points that has ATSI communities as target users. The description of the app is \"App that helps users to share photos\" and can you build 2 real-time persona based on that? limit the pain points in 60 characters and persona to 100 characters that should include goals etc.."
 }

@@ -25,7 +25,7 @@ const Home: NextPage = () => {
     }
   };
 
-  const prompt = `Generate three sets of primary, secondary, and tertiary color based on the description and category provided. Please provide only the hex codes for the color of each set, labeled as 1. and 2. respectively. The description is '${bio}' and the category is '${vibe}'.The colors should be in compliance with ATSI communities.${
+  const prompt = `I need you to act as a UX designer and identify the 3 pain points that has ATSI communities as target users. The description of the app is ${bio} and can you build 2 real-time persona based on that? limit the pain points in 60 characters and persona to 100 characters that should include goals etc..${
     bio.slice(-1) === "." ? "" : "."
   }`;
   console.log({
@@ -138,37 +138,6 @@ const Home: NextPage = () => {
               />
             </div>
 
-            <div className="border-2 border-[#2F323B] p-8 rounded-xl">
-              <div className="flex items-center space-x-3">
-                <div
-                  contentEditable
-                  className="flex items-center justify-center text-xl text-left font-medium text-gray-300"
-                >
-                  Step - 2️⃣
-                </div>
-              </div>
-              <div className="mt-6 flex mb-2 items-center space-x-3">
-                <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
-                  App Category:
-                </p>
-              </div>
-              <div className=" flex items-center space-x-3">
-                <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
-                  Enter the category of the application
-                </p>
-              </div>
-
-              {/* Enter a paragraph */}
-
-              <input
-                type="text"
-                value={vibe}
-                onChange={(e) => setVibe(e.target.value)}
-                className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
-             placeholder-gray-700 placeholder-opacity-100 "
-                placeholder="Social, Photo Sharing, Entertainment"
-              />
-            </div>
             {!loading && (
               <div className="flex justify-center p-8">
                 <button
@@ -211,56 +180,66 @@ px-5 py-5 text-center mr-2 mb-2"
                       className="text-5xl p-4 w-auto md:w-full font-bold text-center mb-4 bg-gradient-to-r from-purple-300 to-blue-400 bg-clip-text text-transparent bg-clip-text text-transparent"
                       ref={bioRef}
                     >
-                      Your generated Colors
+                      Your generated Personas
                     </h2>
                   </div>
 
                   <div className="flex justify-left w-full  rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
                     <div className="space-y-8 flex flex-col items-center justify-center w-full mx-auto">
-                      <div className="grid md:grid-cols-3 grid-cols-1 gap-4 place-items-start justify-items-stretch w-full">
-                        {generatedBios
-                          .substring(generatedBios.indexOf("1") + 3)
-                          .split(/\d+\./)
-                          .map((generatedBio, i) => {
-                            const colorRegex =
-                              /#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})/g;
-                            const colors = generatedBios.match(colorRegex);
-                            const backgroundColor = colors
-                              ? colors[i % colors.length]
-                              : "#FFFFFF";
-                            const textColor =
-                              chroma.contrast(backgroundColor, "white") > 4.5
-                                ? "white"
-                                : "black";
-                            const hexCodes = generatedBio.match(colorRegex);
-                            return (
-                              <div key={i}>
-                                <div className="grid rounded-[16px] text-white font-medium bg-[#10131C] border-2 border-[#2F323B] p-4 rounded grid-cols-3 gap-2">
-                                  {hexCodes &&
-                                    hexCodes.map((hex, j) => (
-                                        <div>
-                                      <div
-                                        key={j}
-                                        className=" rounded-xl h-36 shadow-md p-2 hover:bg-gray-100 transition cursor-copy"
-                                        style={{
-                                          backgroundColor: hex,
-                                        }}
-                                        onClick={() => {
-                                            navigator.clipboard.writeText(hex);
-                                            toast("color code copied to clipboard", {
-                                              icon: "✂️",
-                                            });
-                                          }}
-                                      >
-                                      </div>
-                                      <p className="text-white flex justify-center mt-4">{hex}</p>
-                                      </div>
-                                    ))}
-                                </div>
-                              </div>
-                            );
-                          })}
+                      
+                    <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
+                {generatedBios
+                  .substring(generatedBios.indexOf("1") + 3,generatedBios.indexOf("Persona 1:"))
+                  .split(/\d+\./)
+                  .map((generatedBio) => {
+                    return (
+                      <div
+                        className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                        onClick={() => {
+                          navigator.clipboard.writeText(generatedBio);
+                          toast("guideline copied to clipboard", {
+                            icon: "✂️",
+                          });
+                        }}
+                        key={generatedBio}
+                      >
+                        <p>{generatedBio}</p>
                       </div>
+                    );
+                  })}
+                  <div>
+  <h2>Personas:</h2>
+  {generatedBios
+    .substring(generatedBios.indexOf("Persona 1:"))
+    .split(/Persona \d+:/)
+    .map((persona, index) => {
+      if (persona === "") {
+        return null;
+      }
+      const details = persona.split("\n").map((detail, i) => (
+        <p key={i}>{detail}</p>
+      ));
+      return (
+        <div
+          className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+          onClick={() => {
+            navigator.clipboard.writeText(persona);
+            toast("persona copied to clipboard", {
+              icon: "✂️",
+            });
+          }}
+          key={index}
+        >
+          {details}
+        </div>
+      );
+    })}
+
+</div>
+              </div>
+
+
+
                     </div>
                   </div>
                 </>
