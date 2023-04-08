@@ -161,7 +161,7 @@ focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm
 px-5 py-5 text-center mr-2 mb-2"
                   onClick={(e) => generateBio(e)}
                 >
-                  Generate your colors 🤌🏻
+                  Generate your painpoints 🤌🏻
                 </button>
               </div>
             )}
