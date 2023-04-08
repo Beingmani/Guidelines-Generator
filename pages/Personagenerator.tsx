@@ -103,13 +103,13 @@ const Home: NextPage = () => {
                 contentEditable
                 className="bg-gray-900 rounded-full h-24 w-24 flex items-center justify-center mb-6 text-4xl text-white"
               >
-                🎨
+                📝
               </div>
               <h1 className="text-5xl p-4 w-auto md:w-full font-bold text-center mb-4 bg-gradient-to-r from-purple-300 to-blue-400 bg-clip-text text-transparent bg-clip-text text-transparent">
-                Color Palette Generator
+                Persona generator
               </h1>
               <p className="text-xl font-light sm:text-2xl max-w-[708px] text-gray-300 text-center">
-                Generate amazing colors for your app in seconds with our AI
+                Generate pain points and personas for your app in seconds with our AI
                 powered tool that are in compliance with ATSI communities.
               </p>
             </div>
