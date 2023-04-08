@@ -8,6 +8,8 @@ import Footer from "../components/Footer";
 import LoadingDots from "../components/LoadingDots";
 import chroma from "chroma-js";
 import React, { Fragment } from "react";
+import html2canvas from "html2canvas";
+
 import { ClipboardIcon, RocketLaunchIcon } from "@heroicons/react/24/outline";
 
 const Home: NextPage = () => {
@@ -25,7 +27,19 @@ const Home: NextPage = () => {
     }
   };
 
-  const prompt = `I need you to act as a UX designer and identify the 3 pain points that has ATSI communities as target users. The description of the app is ${bio} and can you build 2 real-time persona based on that? limit the pain points in 60 characters and persona to 100 characters that should include goals etc..${
+  function handleDownloadClick() {
+    console.log("Hello from download button");
+    const cpimage = document.querySelector("#cpImage");
+    if (cpimage instanceof HTMLElement) {
+      html2canvas(cpimage).then(function (canvas) {
+        const downloadLink = document.createElement("a");
+        downloadLink.download = "cpimage.png";
+        downloadLink.href = canvas.toDataURL("image/png");
+        downloadLink.click();
+      });
+    }
+  }
+  const prompt = `I need you to act as a UX designer and identify the 2 pain points that has ATSI communities as target users. The description of the app is ${bio} and can you build 2 real-time different persona based on that. limit the pain points in 50 characters and persona to 100 characters that should include goals etc..${
     bio.slice(-1) === "." ? "" : "."
   }`;
   console.log({
@@ -130,7 +144,7 @@ const Home: NextPage = () => {
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 rows={4}
-                className="w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
+                className="w-full  rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
              placeholder-gray-700 placeholder-opacity-100 "
                 placeholder={
                   "App that helps users to share photos and intreact with other existing users."
@@ -166,7 +180,10 @@ px-5 py-5 text-center mr-2 mb-2"
               reverseOrder={false}
               toastOptions={{ duration: 2000 }}
             />
-            <div className="inline-flex items-center justify-center w-full">
+            <div
+              
+              className="inline-flex items-center justify-center w-full"
+            >
               <hr className="w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
               <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 left-1/2 dark:text-white bg-[#040617]">
                 Limited Credits available, please use it appropriately :D
@@ -184,64 +201,62 @@ px-5 py-5 text-center mr-2 mb-2"
                     </h2>
                   </div>
 
-                  <div className="flex justify-left w-full  rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
+                  <div id="cpImage" className="flex justify-left w-full  rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
                     <div className="space-y-8 flex flex-col items-center justify-center w-full mx-auto">
-                      
-                    <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
-                {generatedBios
-                  .substring(generatedBios.indexOf("1") + 3,generatedBios.indexOf("Persona 1:"))
-                  .split(/\d+\./)
-                  .map((generatedBio) => {
-                    return (
-                      <div
-                        className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                        onClick={() => {
-                          navigator.clipboard.writeText(generatedBio);
-                          toast("guideline copied to clipboard", {
-                            icon: "✂️",
-                          });
-                        }}
-                        key={generatedBio}
-                      >
-                        <p>{generatedBio}</p>
+                      <div className=" flex flex-col items-center justify-center w-full">
+                        <div className="flex w-full flex-row mb-6">
+                          <div className="w-1/3 border-2  border-[#2F323B] rounded-xl flex justify-center bg-[#10131C] items-center text-5xl mr-6">
+                            <p className="text-white">Pain points</p>
+                          </div>
+                          <div className="flex flex-col rounded w-2/3">
+                            {generatedBios
+                              .substring(
+                                generatedBios.indexOf("1") + 3,
+                                generatedBios.indexOf("Persona 1:")
+                              )
+                              .split(/\d+\./)
+                              .map((generatedBio) => {
+                                return (
+                                  <div
+                                    className=" p-4 rounded-xl text-gray-400 font-regular text-lg shadow-sm bg-[#10131C] border-[#2F323B]"
+                                    key={generatedBio}
+                                  >
+                                    <p> 🙁 {generatedBio}</p>
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        </div>
+
+                        <div className="border-2  w-full p-6 border-[#2F323B] mb-6 rounded-xl flex justify-center bg-[#10131C] items-center text-5xl">
+                          <p className="text-white">User personas</p>
+                        </div>
+                        <div className="w-full grid grid-cols-2 gap-6">
+                          {generatedBios
+                            .substring(generatedBios.indexOf("Persona 1:"))
+                            .split(/Persona \d+:/)
+                            .map((persona, index) => {
+                              if (persona === "") {
+                                return null;
+                              }
+                              const details = persona
+                                .split("\n")
+                                .map((detail, i) => <p key={i}>{detail}</p>);
+                              return (
+                                <div
+                                  className="w-full rounded-xl text-gray-400 p-4 font-regular text-lg shadow-sm bg-[#10131C] "
+                                  key={index}
+                                >
+                                  {details}
+                                </div>
+                              );
+                            })}
+                        </div>
                       </div>
-                    );
-                  })}
-                  <div>
-  <h2>Personas:</h2>
-  {generatedBios
-    .substring(generatedBios.indexOf("Persona 1:"))
-    .split(/Persona \d+:/)
-    .map((persona, index) => {
-      if (persona === "") {
-        return null;
-      }
-      const details = persona.split("\n").map((detail, i) => (
-        <p key={i}>{detail}</p>
-      ));
-      return (
-        <div
-          className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-          onClick={() => {
-            navigator.clipboard.writeText(persona);
-            toast("persona copied to clipboard", {
-              icon: "✂️",
-            });
-          }}
-          key={index}
-        >
-          {details}
-        </div>
-      );
-    })}
-
-</div>
-              </div>
-
-
-
                     </div>
                   </div>
+               
+                  <button className="p-4 bg-[#10131C] border-2 border-[#2F323B] text-sm indent-1 text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none flex items-center" onClick={handleDownloadClick}>Download as PNG</button>
                 </>
               )}
             </div>
