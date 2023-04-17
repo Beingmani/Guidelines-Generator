@@ -289,15 +289,15 @@ px-5 py-5 text-center mr-2 mb-2"
                                 className="grid grid-cols-2 gap-12 w-full"
                                 key={generatedBio}
                               >
-                                <div className="p-8 bg-[#10131C] mr-4 border-[#2F323B] text-white rounded-xl focus:outline-none">
+                                <div className="p-8 bg-[#10131C] text-xl mr-4 border-[#2F323B] text-white rounded-xl focus:outline-none">
                                   <p>{original}</p>
                                 </div>
                                 <div className="relative">
-                                  <div className="p-8 bg-[#10131C] border-2 border-[#2F323B] text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none">
-                                    <p className="mb-8">{translated}</p>
+                                  <div className="p-8 bg-[#10131C] border-2 border-[#2F323B] text-lg rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none">
+                                    <p className="mb-8 text-white text-xl">{translated}</p>
                                     {showPronunciation && (
                                       <div className="mb-20">
-                                        <p>{pronunciation}</p>
+                                        <p className="text-gray-500 text-lg">{pronunciation}</p>
                                       </div>
                                     )}
                                     <div className="flex flex-column">
@@ -324,9 +324,10 @@ px-5 py-5 text-center mr-2 mb-2"
                                       onClick={() => {
                                       
                                         const value = new SpeechSynthesisUtterance(translated);
-                                        value.rate = 0.8; // set the rate to 0.8 to slow down the speech
-                                        value.pitch = 1.5; // set the pitch to 1.5 to raise the tone
+                                        value.rate = 0.4; // set the rate to 0.8 to slow down the speech
+                                        value.pitch = 0.6; // set the pitch to 1.5 to raise the tone
                                         window.speechSynthesis.speak(value);
+                                        value.volume = 1.0;
                                         
                                       }}
                                     >
