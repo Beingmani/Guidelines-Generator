@@ -10,14 +10,14 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export type VibeType = "Art and Design" | "Augumented Reality" | "Auto & vehicles" | "Beauty" |"Books and Reference" | "Business" | "Comics" | "Communication" | "Dating" | "Education" | "Entertainment" | "Events" | "Finance" | "Food and Drink" | "Games" | "Health and Fitness" | "House and Home" | "Libraries and Demo" | "Lifestyle" | "Maps and Navigation" | "Medical" | "Music and Audio" | "News and Magazines" | "Parenting" | "Personalization" | "Photography" | "Productivity" | "Shopping" | "Social" | "Sports" | "Tools" | "Travel and Local" | "Video Players and Editors" | "Weather";
+export type StateAus = "SA" | "NSW" | "VIC" | "QLD" | "WA" | "TAS" | "NT" | "ACT";
 
 interface DropDownProps {
-  vibe: VibeType;
-  setVibe: (vibe: VibeType) => void;
+  vibe: StateAus;
+  setVibe: (vibe: StateAus) => void;
 }
 
-let vibes: VibeType[] = ["Art and Design", "Augumented Reality", "Auto & vehicles", "Beauty", "Books and Reference", "Business", "Comics", "Communication", "Dating", "Education", "Entertainment", "Events", "Finance", "Food and Drink", "Games", "Health and Fitness", "House and Home", "Libraries and Demo", "Lifestyle", "Maps and Navigation", "Medical", "Music and Audio", "News and Magazines", "Parenting", "Personalization", "Photography", "Productivity", "Shopping", "Social", "Sports", "Tools", "Travel and Local", "Video Players and Editors", "Weather"];
+let vibes: StateAus[] = ["SA", "NSW", "VIC", "QLD", "WA", "TAS", "NT", "ACT"];
 
 export default function DropDown({ vibe, setVibe }: DropDownProps) {
   return (

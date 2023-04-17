@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import DropDown, { VibeType } from "../components/DropDown";
+
 import Footer from "../components/Footer";
 import LoadingDots from "../components/LoadingDots";
 import chroma from "chroma-js";
@@ -39,7 +39,7 @@ const Home: NextPage = () => {
       });
     }
   }
-  const prompt = `I need you to act as a UX designer and identify the 2 pain points that has ATSI communities as target users. The description of the app is ${bio} and can you build 2 real-time different persona based on that. limit the pain points in 50 characters and persona to 100 characters that should include goals etc..${
+  const prompt = `I need you to act as a UX designer and identify the 5 pain points that has ATSI communities as target users, pain points should be labeled as Pain Point 1 , Pain Point 2 etc. The description of the app is ${bio} and can you build 2 real-time different persona based on that. limit the pain points in 50 characters and persona to 100 characters that should include goals etc..${
     bio.slice(-1) === "." ? "" : "."
   }`;
   console.log({
@@ -153,7 +153,7 @@ const Home: NextPage = () => {
             </div>
 
             {!loading && (
-              <div className="flex justify-center p-8">
+              <div className="flex justify-center p-24">
                 <button
                   type="button"
                   className=" text-white bg-gradient-to-r from-purple-400 to-blue-600 hover:bg-gradient-to-br focus:ring-4 
@@ -205,7 +205,7 @@ px-5 py-5 text-center mr-2 mb-2"
                     <div className="space-y-8 flex flex-col items-center justify-center w-full mx-auto">
                       <div className=" flex flex-col items-center justify-center w-full">
                         <div className="flex w-full flex-row mb-6">
-                          <div className="w-1/3 border-2  border-[#2F323B] rounded-xl flex justify-center bg-[#10131C] items-center text-5xl mr-6">
+                          <div className="w-1/3 border-2  border-[#2F323B] rounded-xl flex justify-center bg-[#10131C] items-center text-2xl mr-6">
                             <p className="text-white">Pain points</p>
                           </div>
                           <div className="flex flex-col rounded w-2/3">
@@ -214,7 +214,7 @@ px-5 py-5 text-center mr-2 mb-2"
                                 generatedBios.indexOf("1") + 3,
                                 generatedBios.indexOf("Persona 1:")
                               )
-                              .split(/\d+\./)
+                              .split(/Pain Point \d+:/)
                               .map((generatedBio) => {
                                 return (
                                   <div
@@ -228,7 +228,7 @@ px-5 py-5 text-center mr-2 mb-2"
                           </div>
                         </div>
 
-                        <div className="border-2  w-full p-6 border-[#2F323B] mb-6 rounded-xl flex justify-center bg-[#10131C] items-center text-5xl">
+                        <div className="border-2  w-full p-12 border-[#2F323B] mb-6 rounded-xl flex justify-center bg-[#10131C] items-center text-2xl">
                           <p className="text-white">User personas</p>
                         </div>
                         <div className="w-full grid grid-cols-2 gap-6">

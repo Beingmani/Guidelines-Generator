@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import DropDown, { VibeType } from "../components/DropDown";
+
 import Footer from "../components/Footer";
 import LoadingDots from "../components/LoadingDots";
 import chroma from "chroma-js";
@@ -14,16 +14,10 @@ const Home: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const [bio, setBio] = useState("");
   const [vibe, setVibe] = useState("");
-  const [budget, setBudget] = useState("");
-  const [days, setDays] = useState("");
-  const [Breakfastneeds, setBreakfastneeds] = useState("");
-  const [Lunchneeds, setLunchneeds] = useState("");
-  const [Dinnerneeds, setDinnerneeds] = useState("");
-const [mealstyle, setMealstyle] = useState("");
-const [likedfoods, setLikedfoods] = useState("");
-const [dislikedfoods, setDislikedfoods] = useState("");
-const [location, setLocation] = useState("");
-const [shopsnearby, setShopsnearby] = useState("");
+  const [cookingtime, setCookingtime] = useState("");
+  const [mealtype, setMealtype] = useState("");
+  const [dietary, setDietary] = useState("");
+  
 
   const [generatedBios, setGeneratedBios] = useState<String>("");
 
@@ -35,7 +29,7 @@ const [shopsnearby, setShopsnearby] = useState("");
     }
   };
 
-  const prompt = `Suggest 2 dishes based on the ingredient i give and the cusine i want. Just give the dish names labeled as 1.2. The ingredients i have is ${bio} and cusine i want is ${vibe}${
+  const prompt = `I need you to suggest dishes and recipies based on the information i give. The dishes should be labled as 1.2. I have ${cookingtime} to cook and i have ${dietary}restriction and the ingredients i have are ${bio}.All the dishes should be made for ${mealtype} and should be in ${vibe} style ${
     bio.slice(-1) === "." ? "" : "."
   }`;
   console.log({
@@ -105,7 +99,8 @@ const [shopsnearby, setShopsnearby] = useState("");
                 Dish suggestor
               </h1>
               <p className="text-xl font-light sm:text-2xl max-w-[708px] text-gray-300 text-center">
-                Confused on what to cook? I got you covered. This tool helps you to generate dishes based on your needs.
+                Confused on what to cook? I got you covered. This tool helps you
+                to generate dishes based on your needs.
               </p>
             </div>
           </section>
@@ -128,7 +123,8 @@ const [shopsnearby, setShopsnearby] = useState("");
               </div>
               <div className=" flex items-center space-x-3">
                 <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
-                  Enter the main Ingredients you have at home or you want to cook with it.
+                  Enter the main Ingredients you have at home or you want to
+                  cook with it.
                 </p>
               </div>
 
@@ -146,16 +142,12 @@ const [shopsnearby, setShopsnearby] = useState("");
               />
             </div>
 
+            {/* create a stepper component in tailwind css */}
 
-{/* create a stepper component in tailwind css */}
-                    
-
-
-
-
-
-            <div className="border-2 border-[#2F323B] p-8 rounded-xl">
+            <div className="border-2 border-[#2F323B] p-8 rounded-xl mb-12">
               <div className="flex items-center space-x-3">
+               
+                
                 <div
                   contentEditable
                   className="flex items-center justify-center text-xl text-left font-medium text-gray-300"
@@ -163,6 +155,8 @@ const [shopsnearby, setShopsnearby] = useState("");
                   Step - 2️⃣
                 </div>
               </div>
+              <div className="grid md:grid-cols-2 grid-cols-1 gap-12 justify-between">
+              <div className="w-full">
               <div className="mt-6 flex mb-2 items-center space-x-3">
                 <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
                   Cusine:
@@ -184,9 +178,94 @@ const [shopsnearby, setShopsnearby] = useState("");
              placeholder-gray-700 placeholder-opacity-100 "
                 placeholder="South Indian, North Indian, Chinese, Italian, etc."
               />
+              </div>
+              <div className="w-full">
+                <div className="mt-6 flex mb-2 items-center space-x-3">
+                  <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
+                    Meal type:
+                  </p>
+                </div>
+                <div className=" flex items-center space-x-3">
+                  <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
+                  Enter the meal type you want to cook.
+                  </p>
+                </div>
+
+                {/* Enter a paragraph */}
+
+                <input
+                  type="text"
+                  value={mealtype}
+                  onChange={(e) => setMealtype(e.target.value)}
+                  className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
+                 placeholder-gray-700 placeholder-opacity-100 "
+                  placeholder="Breakfast, Lunch, Dinner, Snacks, etc."
+                />
+              </div>
+              </div>
+            </div>
+            <div className="border-2 border-[#2F323B] p-8 rounded-xl">
+              <div className="flex items-center space-x-3">
+               
+                
+                <div
+                  contentEditable
+                  className="flex items-center justify-center text-xl text-left font-medium text-gray-300"
+                >
+                  Step - 3️⃣
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 grid-cols-1 gap-12 justify-between">
+              <div className="w-full">
+              <div className="mt-6 flex mb-2 items-center space-x-3">
+                <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
+                Dietary Restrictions:
+                </p>
+              </div>
+              <div className=" flex items-center space-x-3">
+                <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
+                  Enter the dietary restrictions you want to cook.
+                </p>
+              </div>
+
+              {/* Enter a paragraph */}
+
+              <input
+                type="text"
+                value={dietary}
+                onChange={(e) => setDietary(e.target.value)}
+                className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
+             placeholder-gray-700 placeholder-opacity-100 "
+                placeholder="Vegan, Vegetarian, Gluten Free, etc."
+              />
+              </div>
+              <div className="w-full">
+                <div className="mt-6 flex mb-2 items-center space-x-3">
+                  <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
+                   Cooking Time:
+                  </p>
+                </div>
+                <div className=" flex items-center space-x-3">
+                  <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
+                  Enter the cooking time you have to cook a meal.
+                  </p>
+                </div>
+
+                {/* Enter a paragraph */}
+
+                <input
+                  type="text"
+                  value={cookingtime}
+                  onChange={(e) => setCookingtime(e.target.value)}
+                  className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
+                 placeholder-gray-700 placeholder-opacity-100 "
+                  placeholder="30 minutes, 1 hour, 2 hours, etc."
+                />
+              </div>
+              </div>
             </div>
             {!loading && (
-              <div className="flex justify-center p-8">
+              <div className="flex justify-center p-24">
                 <button
                   type="button"
                   className=" text-white bg-gradient-to-r from-purple-400 to-blue-600 hover:bg-gradient-to-br focus:ring-4 
@@ -233,27 +312,27 @@ px-5 py-5 text-center mr-2 mb-2"
 
                   <div className="flex justify-left w-full  rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
                     <div className="space-y-8 flex flex-col items-center justify-center w-full mx-auto">
-                    <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
-                {generatedBios
-                  .substring(generatedBios.indexOf("1") + 3)
-                  .split(/\d+\./)
-                  .map((generatedBio) => {
-                    return (
-                      <div
-                        className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                        onClick={() => {
-                          navigator.clipboard.writeText(generatedBio);
-                          toast("guideline copied to clipboard", {
-                            icon: "✂️",
-                          });
-                        }}
-                        key={generatedBio}
-                      >
-                        <p>{generatedBio}</p>
+                      <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
+                        {generatedBios
+                          .substring(generatedBios.indexOf("1") + 3)
+                          .split(/\d+\./)
+                          .map((generatedBio) => {
+                            return (
+                              <div
+                                className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                                onClick={() => {
+                                  navigator.clipboard.writeText(generatedBio);
+                                  toast("guideline copied to clipboard", {
+                                    icon: "✂️",
+                                  });
+                                }}
+                                key={generatedBio}
+                              >
+                                <p>{generatedBio}</p>
+                              </div>
+                            );
+                          })}
                       </div>
-                    );
-                  })}
-              </div>
                     </div>
                   </div>
                 </>

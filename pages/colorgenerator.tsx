@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import DropDown, { VibeType } from "../components/DropDown";
+
 import Footer from "../components/Footer";
 import LoadingDots from "../components/LoadingDots";
 import chroma from "chroma-js";
@@ -25,7 +25,7 @@ const Home: NextPage = () => {
     }
   };
 
-  const prompt = `Generate three sets of primary, secondary, and tertiary color based on the description and category provided. Please provide only the hex codes for the color of each set, labeled as 1. and 2. respectively. The description is '${bio}' and the category is '${vibe}'.The colors should be in compliance with ATSI communities.${
+  const prompt = `Generate three different sets of primary, secondary, and tertiary color based on the description and category provided. Provide only the hex codes for the color of each set, labeled as Set 1., Set 2, Set 3. respectively. The description is '${bio}' and the category is '${vibe}'.${
     bio.slice(-1) === "." ? "" : "."
   }`;
   console.log({
@@ -170,12 +170,12 @@ const Home: NextPage = () => {
               />
             </div>
             {!loading && (
-              <div className="flex justify-center p-8">
+              <div className="flex justify-center p-24">
                 <button
                   type="button"
                   className=" text-white bg-gradient-to-r from-purple-400 to-blue-600 hover:bg-gradient-to-br focus:ring-4 
-focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm 
-px-5 py-5 text-center mr-2 mb-2"
+                  focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm 
+                  px-5 py-5 text-center mr-2 mb-2"
                   onClick={(e) => generateBio(e)}
                 >
                   Generate your colors 🤌🏻
@@ -220,7 +220,7 @@ px-5 py-5 text-center mr-2 mb-2"
                       <div className="grid md:grid-cols-3 grid-cols-1 gap-4 place-items-start justify-items-stretch w-full">
                         {generatedBios
                           .substring(generatedBios.indexOf("1") + 3)
-                          .split(/\d+\./)
+                          .split(/Set \d+:/)
                           .map((generatedBio, i) => {
                             const colorRegex =
                               /#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})/g;
@@ -228,10 +228,6 @@ px-5 py-5 text-center mr-2 mb-2"
                             const backgroundColor = colors
                               ? colors[i % colors.length]
                               : "#FFFFFF";
-                            const textColor =
-                              chroma.contrast(backgroundColor, "white") > 4.5
-                                ? "white"
-                                : "black";
                             const hexCodes = generatedBio.match(colorRegex);
                             return (
                               <div key={i}>

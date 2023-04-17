@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-
+import { ExclamationTriangleIcon } from "@heroicons/react/20/solid";
 import Footer from "../components/Footer";
 import LoadingDots from "../components/LoadingDots";
 import chroma from "chroma-js";
@@ -14,7 +14,10 @@ const Home: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const [bio, setBio] = useState("");
   const [vibe, setVibe] = useState("");
-
+  const [cookingtime, setCookingtime] = useState("");
+  const [mealtype, setMealtype] = useState("");
+  const [dietary, setDietary] = useState("");
+  const [pronunciation, setPronunciation] = useState("");
   const [generatedBios, setGeneratedBios] = useState<String>("");
 
   const bioRef = useRef<null | HTMLDivElement>(null);
@@ -25,13 +28,9 @@ const Home: NextPage = () => {
     }
   };
 
-  const prompt = `Design a set of 2 of UI/UX guidelines for an app that helps ${bio} having focus users as ATSI 
-    (Aboriginal and Torres Strait Islander) individuals. 
-    The guidelines should be based on the category ${vibe} and description of the app. 
-    Make sure the guidelines are with in 60 characters labled as 1.Iconography followed by : and description. Consider factors such as 
-    Iconography, accessibility, cultural sensitivity, and user preferences while creating the guidelines. Additionally summarize them in exactly 4 emoji${
-      bio.slice(-1) === "." ? "" : "."
-    }`;
+  const prompt = `I need you to translate the given scentence/word in to aboriginal language with prounciation. The scentence/word I have is ${bio} and i need it to be translated in to ${mealtype} language which is originated in ${vibe},Australia. lable the output as "Original :" for given input and "Translated :" for translated version and "Prounciation:" ${
+    bio.slice(-1) === "." ? "" : "."
+  }`;
   console.log({
     prompt,
   });
@@ -73,7 +72,7 @@ const Home: NextPage = () => {
     scrollToBios();
     setLoading(false);
   };
-
+  console.log("Hello ", generatedBios);
   return (
     <div className="flex flex-col items-center justify-center py-2 min-h-screen sm:py-12 bg-[#040617]">
       <img
@@ -93,14 +92,13 @@ const Home: NextPage = () => {
                 contentEditable
                 className="bg-gray-900 rounded-full h-24 w-24 flex items-center justify-center mb-6 text-4xl text-white"
               >
-                ✨
+                🎨
               </div>
               <h1 className="text-5xl p-4 w-auto md:w-full font-bold text-center mb-4 bg-gradient-to-r from-purple-300 to-blue-400 bg-clip-text text-transparent bg-clip-text text-transparent">
-                Guidelines Generator
+                language translator
               </h1>
               <p className="text-xl font-light sm:text-2xl max-w-[708px] text-gray-300 text-center">
-                Generate UI/UX guidelines for your app in seconds with our AI
-                powered tool that are in compliance with ATSI communities.
+                translate your words, scentence you want to Aboriginal language{" "}
               </p>
             </div>
           </section>
@@ -118,13 +116,13 @@ const Home: NextPage = () => {
               </div>
               <div className="mt-6 flex mb-2 items-center space-x-3">
                 <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
-                  App description:
+                  Enter the word/Scentence:
                 </p>
               </div>
               <div className=" flex items-center space-x-3">
                 <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
-                  Enter the basic information about the functionality of the
-                  application
+                  Enter the word/Scentence you want to translate in to
+                  Aboriginal language
                 </p>
               </div>
 
@@ -136,13 +134,13 @@ const Home: NextPage = () => {
                 rows={4}
                 className="w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
              placeholder-gray-700 placeholder-opacity-100 "
-                placeholder={
-                  "App that helps users to share photos and intreact with other existing users."
-                }
+                placeholder={"Hey. Welcome to my website. "}
               />
             </div>
 
-            <div className="border-2 border-[#2F323B] p-8 rounded-xl">
+            {/* create a stepper component in tailwind css */}
+
+            <div className="border-2 border-[#2F323B] p-8 rounded-xl mb-12">
               <div className="flex items-center space-x-3">
                 <div
                   contentEditable
@@ -151,28 +149,82 @@ const Home: NextPage = () => {
                   Step - 2️⃣
                 </div>
               </div>
-              <div className="mt-6 flex mb-2 items-center space-x-3">
-                <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
-                  App Category:
-                </p>
-              </div>
-              <div className=" flex items-center space-x-3">
-                <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
-                  Enter the category of the application
-                </p>
-              </div>
+              <div className="grid md:grid-cols-2 grid-cols-1 gap-12 justify-between">
+                <div className="w-full">
+                  <div className="mt-6 flex mb-2 items-center space-x-3">
+                    <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
+                      State:
+                    </p>
+                  </div>
+                  <div className=" flex items-center space-x-3">
+                    <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
+                      Enter the state the langue is originated from
+                    </p>
+                  </div>
 
-              {/* Enter a paragraph */}
+                  {/* Enter a paragraph */}
 
-              <input
-                type="text"
-                value={vibe}
-                onChange={(e) => setVibe(e.target.value)}
-                className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
+                  <input
+                    type="text"
+                    value={vibe}
+                    onChange={(e) => setVibe(e.target.value)}
+                    className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
              placeholder-gray-700 placeholder-opacity-100 "
-                placeholder="Social, Photo Sharing, Entertainment"
-              />
+                    placeholder="SA, NSW, VIC, QLD, WA, NT, TAS, ACT"
+                  />
+                </div>
+                <div className="w-full">
+                  <div className="mt-6 flex mb-2 items-center space-x-3">
+                    <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
+                      Language:
+                    </p>
+                  </div>
+                  <div className=" flex items-center space-x-3">
+                    <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
+                      Enter the language to be translated to
+                    </p>
+                  </div>
+
+                  {/* Enter a paragraph */}
+
+                  <input
+                    type="text"
+                    value={mealtype}
+                    onChange={(e) => setMealtype(e.target.value)}
+                    className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
+                 placeholder-gray-700 placeholder-opacity-100 "
+                    placeholder=" karuna, yuwaalaraay, yindjibarndi, yanyuwa"
+                  />
+                </div>
+              </div>
             </div>
+
+            <div className="rounded-md bg-yellow-50 p-4">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <ExclamationTriangleIcon
+                    className="h-6 w-6 text-yellow-700"
+                    aria-hidden="true"
+                  />
+                </div>
+                <div className="ml-3">
+                  <h3 className="text-xl font-medium text-yellow-800">
+                    Attention needed
+                  </h3>
+                  <div className="mt-2 text-md text-yellow-700">
+                    <p>
+                      Our AI translation system may not be able to accurately
+                      translate text from Aboriginal languages, as there is
+                      limited information available on the internet.While we
+                      strive to provide the best possible translations, there
+                      may be inaccuracies or errors due to the lack of available
+                      resources and data.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {!loading && (
               <div className="flex justify-center p-24">
                 <button
@@ -182,7 +234,7 @@ focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm
 px-5 py-5 text-center mr-2 mb-2"
                   onClick={(e) => generateBio(e)}
                 >
-                  Generate your Guidelines 🤌🏻
+                  Translate your language 🤌🏻
                 </button>
               </div>
             )}
@@ -203,7 +255,7 @@ px-5 py-5 text-center mr-2 mb-2"
             />
             <div className="inline-flex items-center justify-center w-full">
               <hr className="w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-              <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white bg-[#040617]">
+              <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 left-1/2 dark:text-white bg-[#040617]">
                 Limited Credits available, please use it appropriately :D
               </span>
             </div>
@@ -215,86 +267,65 @@ px-5 py-5 text-center mr-2 mb-2"
                       className="text-5xl p-4 w-auto md:w-full font-bold text-center mb-4 bg-gradient-to-r from-purple-300 to-blue-400 bg-clip-text text-transparent bg-clip-text text-transparent"
                       ref={bioRef}
                     >
-                      Your generated guidelines
+                      Your translation can be found here
                     </h2>
                   </div>
 
-                  <div className="flex justify-left w-full border-gray-300 rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
+                  <div className="flex justify-left w-full  rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
                     <div className="space-y-8 flex flex-col items-center justify-center w-full mx-auto">
-                      {generatedBios
-                        .substring(generatedBios.indexOf("1") + 3)
-                        .split(/\d+\./)
-                        .map((generatedBio, index) => {
-                          if (generatedBio) {
-                            const [heading, description] =
-                              generatedBio.split(":");
-                            const emojiRegex = /[\p{Emoji}]/gu;
-                            const emojis = generatedBio.match(emojiRegex);
-                            const cleanedDescription = description?.replace(
-                              /\p{Emoji}/gu,
-                              ""
+                      <div className="flex flex-col items-center justify-center w-full">
+                        {generatedBios
+                          .substring(generatedBios.indexOf("1") + 10)
+                          .split(/\d+\./)
+                          .map((generatedBio) => {
+                            const [original, translated] = generatedBio.split(
+                              /Translated:|Pronunciation:/
                             );
-                            const emojiId = `emojisummarizer-${index}`;
+
                             return (
                               <div
-                                className="rounded-xl bg-[#10131C] text-left border-[#2F323B] w-full p-6 sm:p-8 text-xl sm:text-xl font-light text-gray-500 shadow-md p-4 hover:bg-[#040617] transition"
+                                className="grid grid-cols-2 gap-12 w-full"
                                 key={generatedBio}
                               >
-                                <p className="text-white font-medium py-4">
-                                  {heading}
-                                </p>
-                                {cleanedDescription && (
-                                  <p className="text-gray-400 font-light">
-                                    {cleanedDescription}
-                                  </p>
-                                )}
-                                <div className="flex justify-between items-center mt-8 ">
-                                  <div className="flex ">
-                                <p> </p><p id={emojiId} style={{ display: "none" }}>
-                                    {emojis}
-                                  </p>
-                                  </div>
-                                  <div className="flex justify-items ">
+                                <div
+                                  className="p-8 pb-32 bg-[#10131C] mr-4  border-[#2F323B] text-white rounded-xl  focus:outline-none  "
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(original);
+                                    toast(
+                                      "Original sentence copied to clipboard",
+                                      {
+                                        icon: "✂️",
+                                      }
+                                    );
+                                  }}
+                                >
+                                  <p>{original}</p>
+                                </div>
+                                <div
+                                  className="p-8 relative bg-[#10131C] mr-4 border-2 border-[#2F323B] text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none "
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(translated);
+                                    toast(
+                                      "Translated sentence copied to clipboard",
+                                      {
+                                        icon: "✂️",
+                                      }
+                                    );
+                                  }}
+                                >
+                                  <p>{translated}</p>
                                   <button
-                                    className="p-4 bg-[#10131C] mr-4 border-2 border-[#2F323B] text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none flex items-center"
-                                    onClick={() => {
-                                      navigator.clipboard.writeText(
-                                        generatedBio
-                                      );
-                                      toast("Text copied to clipboard", {
-                                        icon: "📋",
-                                      });
-                                    }}
-                                  >
-                                    <ClipboardIcon className="h-5 w-5" />
-                                  </button>
-                                  <button
-                                    className="p-4 bg-[#10131C] border-2 border-[#2F323B] text-sm indent-1 text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none flex items-center"
-                                    onClick={() => {
-                                      const emojisText = emojis
-                                        ? "Emojis: " + emojis.join(" ")
-                                        : "";
-                                      toast(
-                                        "Summarized text in Emojis\n" +
-                                          emojisText,
-                                        {
-                                          icon: "🚀",
-                                        }
-                                      );
-                                      document.getElementById(
-                                        emojiId
-                                      )!.style.display = "block";
-                                    }}
+                                    className="p-4 absolute bottom-4 right-4 bg-[#10131C] border-2 border-[#2F323B] text-sm indent-1 text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none flex items-center"
+                                    
                                   >
                                     <RocketLaunchIcon className="h-5 w-5" />
-                                    <span className="hidden md:inline">Summarize text</span>
+                                    <span className="hidden md:inline">view pronunciation</span>
                                   </button>
-                                  </div>
                                 </div>
                               </div>
                             );
-                          }
-                        })}
+                          })}
+                      </div>
                     </div>
                   </div>
                 </>
