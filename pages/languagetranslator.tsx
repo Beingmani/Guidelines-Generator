@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import LoadingDots from "../components/LoadingDots";
 import chroma from "chroma-js";
 import React, { Fragment } from "react";
+
 import { ClipboardIcon, RocketLaunchIcon } from "@heroicons/react/24/outline";
 
 const Home: NextPage = () => {
@@ -17,8 +18,10 @@ const Home: NextPage = () => {
   const [cookingtime, setCookingtime] = useState("");
   const [mealtype, setMealtype] = useState("");
   const [dietary, setDietary] = useState("");
-  const [pronunciation, setPronunciation] = useState("");
+
   const [generatedBios, setGeneratedBios] = useState<String>("");
+  const [showPronunciation, setShowPronunciation] = useState(false);
+  const [pronunciation, setPronunciation] = useState("");
 
   const bioRef = useRef<null | HTMLDivElement>(null);
 
@@ -278,49 +281,60 @@ px-5 py-5 text-center mr-2 mb-2"
                           .substring(generatedBios.indexOf("1") + 10)
                           .split(/\d+\./)
                           .map((generatedBio) => {
-                            const [original, translated] = generatedBio.split(
-                              /Translated:|Pronunciation:/
-                            );
+                            const [original, translated, pr] =
+                              generatedBio.split(/Translated:|Pronunciation:/);
 
                             return (
                               <div
                                 className="grid grid-cols-2 gap-12 w-full"
                                 key={generatedBio}
                               >
-                                <div
-                                  className="p-8 pb-32 bg-[#10131C] mr-4  border-[#2F323B] text-white rounded-xl  focus:outline-none  "
-                                  onClick={() => {
-                                    navigator.clipboard.writeText(original);
-                                    toast(
-                                      "Original sentence copied to clipboard",
-                                      {
-                                        icon: "✂️",
-                                      }
-                                    );
-                                  }}
-                                >
+                                <div className="p-8 bg-[#10131C] mr-4 border-[#2F323B] text-white rounded-xl focus:outline-none">
                                   <p>{original}</p>
                                 </div>
-                                <div
-                                  className="p-8 relative bg-[#10131C] mr-4 border-2 border-[#2F323B] text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none "
-                                  onClick={() => {
-                                    navigator.clipboard.writeText(translated);
-                                    toast(
-                                      "Translated sentence copied to clipboard",
-                                      {
-                                        icon: "✂️",
-                                      }
-                                    );
-                                  }}
-                                >
-                                  <p>{translated}</p>
-                                  <button
-                                    className="p-4 absolute bottom-4 right-4 bg-[#10131C] border-2 border-[#2F323B] text-sm indent-1 text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none flex items-center"
-                                    
-                                  >
-                                    <RocketLaunchIcon className="h-5 w-5" />
-                                    <span className="hidden md:inline">view pronunciation</span>
-                                  </button>
+                                <div className="relative">
+                                  <div className="p-8 bg-[#10131C] border-2 border-[#2F323B] text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none">
+                                    <p className="mb-8">{translated}</p>
+                                    {showPronunciation && (
+                                      <div className="mb-20">
+                                        <p>{pronunciation}</p>
+                                      </div>
+                                    )}
+                                    <div className="flex flex-column">
+                                    <button
+                                      className="p-4 mr-4 bg-[#10131C] border-2 border-[#2F323B] text-sm indent-1 text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none flex items-center"
+                                      onClick={() => {
+                                        if (!pronunciation) {
+                                          setPronunciation(pr.trim());
+                                        }
+                                        setShowPronunciation(
+                                          !showPronunciation
+                                        );
+                                      }}
+                                    >
+                                      <RocketLaunchIcon className="h-5 w-5" />
+                                      <span className="hidden md:inline">
+                                        {showPronunciation
+                                          ? "hide pronunciation"
+                                          : "view pronunciation"}
+                                      </span>
+                                    </button>
+                                    <button
+                                      className="p-4  bg-[#10131C] border-2 border-[#2F323B] text-sm indent-1 text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none flex items-center"
+                                      onClick={() => {
+                                      
+                                        const value = new SpeechSynthesisUtterance(translated);
+                                        value.rate = 0.8; // set the rate to 0.8 to slow down the speech
+                                        value.pitch = 1.5; // set the pitch to 1.5 to raise the tone
+                                        window.speechSynthesis.speak(value);
+                                        
+                                      }}
+                                    >
+                                      <RocketLaunchIcon className="h-5 w-5" />
+                                      text to audio
+                                    </button>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             );
