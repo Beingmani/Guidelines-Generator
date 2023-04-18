@@ -28,7 +28,7 @@ const Home: NextPage = () => {
     }
   };
 
-  const prompt = `I need you to Strictly suggest one recipe. Each recipe should be lables as Recipe 1, Recipe 2. Each recipe should be labled with Recipe Name, Ingredients List, Cooking Time, Preparation Steps. Strictly restrict the preparation steps to 200 characters. I have ${cookingtime} to cook and i have ${dietary}restriction and the ingredients i have are ${bio}.All the dishes should be made for ${mealtype} and should be in ${vibe} style. ${
+  const prompt = `I need you to Strictly suggest two recipe. Each recipe should be lables as Recipe 1, Recipe 2. Each recipe should be labled with Recipe Name, Ingredients List, Cooking Time, Preparation Steps. Strictly restrict the preparation steps to 200 characters. I have ${cookingtime} to cook and i have ${dietary}restriction and the ingredients i have are ${bio}.All the dishes should be made for ${mealtype} and should be in ${vibe} style. ${
     bio.slice(-1) === "." ? "" : "."
   }`;
   console.log({
@@ -315,14 +315,17 @@ px-5 py-5 text-center mr-2 mb-2"
         return null;
       }
       const recipeInfo = generatedBio.split("\n");
-      const recipeName = recipeInfo[0].trim();
-      const ingredientsList = recipeInfo[1].trim().replace("Ingredients:", "");
-      const cookingTime = recipeInfo[2].trim().replace("Cooking Time:", "");
+      const recipeName = recipeInfo[0].substring(2).trim();
+      const cookingTimeInfo = recipeInfo.find((info) => info.includes("Cooking Time:"));
+      const cookingTime = cookingTimeInfo?.substring(14)?.trim() || "";
+      const ingredientsRegex = /-\s*(.*?)\s*(?=-|$)/g;
+      const ingredientsList = (recipeInfo?.slice(2, recipeInfo.indexOf("Preparation Steps:"))?.join("\n")?.match(ingredientsRegex) || []).map((ingredient) => ingredient.trim()).join("\n");
       const preparation = recipeInfo
-        .slice(3)
-        .map((step) => step.trim())
-        .filter((step) => step !== "")
-        .join("\n");
+      .slice(recipeInfo.indexOf("Preparation Steps:") + 1)
+      .map((step) => step.trim())
+      .filter((step) => step !== "" && !step.includes("Cooking Time:"))
+      .join("\n");
+      
       return (
         <div
           className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
@@ -335,13 +338,15 @@ px-5 py-5 text-center mr-2 mb-2"
           key={index}
         >
           <p><strong>Recipe Name:</strong> {recipeName}</p>
-          <p><strong>Ingredients:</strong> {ingredientsList}</p>
+          <p><strong>Ingredients:</strong><br/>{ingredientsList}</p>
           <p><strong>Cooking Time:</strong> {cookingTime}</p>
-          <p><strong>Preparation:</strong> {preparation}</p>
+          <p><strong>Preparation:</strong><br/>{preparation}</p>
         </div>
       );
     })}
 </div>
+
+
 
                     </div>
                   </div>
