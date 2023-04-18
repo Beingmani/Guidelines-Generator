@@ -15,27 +15,29 @@ const features = [
       description:
         'Generate design guidelines for your respective app in seconds that are in compliance with ATSI commuities',
       icon: BookOpenIcon,
-      link : 'https://guidelines-generator.vercel.app/Template',
+      link : 'https://guidelines-generator.vercel.app/guidelinesgenerator',
     },
     {
       name: 'Color Generator',
       description:
         'Generate Color palettes for your respective app in seconds that are in compliance with ATSI commuities',
       icon: SwatchIcon,
-        link: 'https://guidelines-generator.vercel.app/Colourgenerator',
+        link: 'https://guidelines-generator.vercel.app/colourgenerator',
     },
     {
-      name: 'Coming soon',
+      name: 'Persona generator',
       description:
-        'New mini-apps are coming soon. Stay tuned for more updates',
+        'generate personas for your respective app in seconds that are in compliance with ATSI commuities',
       icon: CakeIcon,
+    link: 'https://guidelines-generator.vercel.app/personagenerator'
       
     },
     {
-      name: 'Coming soon',
+      name: 'language generator',
       description:
-        'New mini-apps are coming soon. Stay tuned for more updates',
+        'generate language for your respective words in seconds that are in compliance with ATSI commuities',
       icon: CakeIcon,
+      link: 'https://guidelines-generator.vercel.app/languagetranslator'
     },
   ]
 

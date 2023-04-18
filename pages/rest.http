@@ -1,5 +1,5 @@
 POST http://localhost:3000/api/generate
 
 {
-    "prompt": "Generate three sets of primary, secondary, and tertiary color based on the description and category provided. Provide only the hex codes for the color of each set, labeled as 1. and 2. respectively. The description is 'app that helps users to buy cupcake' and the category is 'Shopping'.The colors should be in compliance with ATSI communities.."
+    "prompt": "I need you to suggest One dishes and recipies based on the information I give with desired value as per the lables mentioned .Restrict the preparation steps to 400 charcters. The dishes should be labled as Recipe Name, Ingredients List, Cooking Time, Preparation Steps, Image of the recipe[Url that to be rendered] .I have 40 Mins to cook and i have No restriction and the ingredients i have are Chicken Leg, Prawns.All the dishes should be made for Lunch and should be in Indian style."
 }

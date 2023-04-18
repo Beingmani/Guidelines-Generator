@@ -17,7 +17,6 @@ const Home: NextPage = () => {
   const [cookingtime, setCookingtime] = useState("");
   const [mealtype, setMealtype] = useState("");
   const [dietary, setDietary] = useState("");
-  
 
   const [generatedBios, setGeneratedBios] = useState<String>("");
 
@@ -29,7 +28,7 @@ const Home: NextPage = () => {
     }
   };
 
-  const prompt = `I need you to suggest dishes and recipies based on the information i give. The dishes should be labled as 1.2. I have ${cookingtime} to cook and i have ${dietary}restriction and the ingredients i have are ${bio}.All the dishes should be made for ${mealtype} and should be in ${vibe} style ${
+  const prompt = `I need you to Strictly suggest one recipe. Each recipe should be lables as Recipe 1, Recipe 2. Each recipe should be labled with Recipe Name, Ingredients List, Cooking Time, Preparation Steps. Strictly restrict the preparation steps to 200 characters. I have ${cookingtime} to cook and i have ${dietary}restriction and the ingredients i have are ${bio}.All the dishes should be made for ${mealtype} and should be in ${vibe} style. ${
     bio.slice(-1) === "." ? "" : "."
   }`;
   console.log({
@@ -146,8 +145,6 @@ const Home: NextPage = () => {
 
             <div className="border-2 border-[#2F323B] p-8 rounded-xl mb-12">
               <div className="flex items-center space-x-3">
-               
-                
                 <div
                   contentEditable
                   className="flex items-center justify-center text-xl text-left font-medium text-gray-300"
@@ -156,58 +153,56 @@ const Home: NextPage = () => {
                 </div>
               </div>
               <div className="grid md:grid-cols-2 grid-cols-1 gap-12 justify-between">
-              <div className="w-full">
-              <div className="mt-6 flex mb-2 items-center space-x-3">
-                <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
-                  Cusine:
-                </p>
-              </div>
-              <div className=" flex items-center space-x-3">
-                <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
-                  Enter the Cusine you want to cook.
-                </p>
-              </div>
+                <div className="w-full">
+                  <div className="mt-6 flex mb-2 items-center space-x-3">
+                    <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
+                      Cusine:
+                    </p>
+                  </div>
+                  <div className=" flex items-center space-x-3">
+                    <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
+                      Enter the Cusine you want to cook.
+                    </p>
+                  </div>
 
-              {/* Enter a paragraph */}
+                  {/* Enter a paragraph */}
 
-              <input
-                type="text"
-                value={vibe}
-                onChange={(e) => setVibe(e.target.value)}
-                className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
+                  <input
+                    type="text" 
+                    value={vibe}
+                    onChange={(e) => setVibe(e.target.value)}
+                    className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
              placeholder-gray-700 placeholder-opacity-100 "
-                placeholder="South Indian, North Indian, Chinese, Italian, etc."
-              />
-              </div>
-              <div className="w-full">
-                <div className="mt-6 flex mb-2 items-center space-x-3">
-                  <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
-                    Meal type:
-                  </p>
+                    placeholder="South Indian, North Indian, Chinese, Italian, etc."
+                  />
                 </div>
-                <div className=" flex items-center space-x-3">
-                  <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
-                  Enter the meal type you want to cook.
-                  </p>
-                </div>
+                <div className="w-full">
+                  <div className="mt-6 flex mb-2 items-center space-x-3">
+                    <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
+                      Meal type:
+                    </p>
+                  </div>
+                  <div className=" flex items-center space-x-3">
+                    <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
+                      Enter the meal type you want to cook.
+                    </p>
+                  </div>
 
-                {/* Enter a paragraph */}
+                  {/* Enter a paragraph */}
 
-                <input
-                  type="text"
-                  value={mealtype}
-                  onChange={(e) => setMealtype(e.target.value)}
-                  className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
+                  <input
+                    type="text"
+                    value={mealtype}
+                    onChange={(e) => setMealtype(e.target.value)}
+                    className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
                  placeholder-gray-700 placeholder-opacity-100 "
-                  placeholder="Breakfast, Lunch, Dinner, Snacks, etc."
-                />
-              </div>
+                    placeholder="Breakfast, Lunch, Dinner, Snacks, etc."
+                  />
+                </div>
               </div>
             </div>
             <div className="border-2 border-[#2F323B] p-8 rounded-xl">
               <div className="flex items-center space-x-3">
-               
-                
                 <div
                   contentEditable
                   className="flex items-center justify-center text-xl text-left font-medium text-gray-300"
@@ -216,52 +211,52 @@ const Home: NextPage = () => {
                 </div>
               </div>
               <div className="grid md:grid-cols-2 grid-cols-1 gap-12 justify-between">
-              <div className="w-full">
-              <div className="mt-6 flex mb-2 items-center space-x-3">
-                <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
-                Dietary Restrictions:
-                </p>
-              </div>
-              <div className=" flex items-center space-x-3">
-                <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
-                  Enter the dietary restrictions you want to cook.
-                </p>
-              </div>
+                <div className="w-full">
+                  <div className="mt-6 flex mb-2 items-center space-x-3">
+                    <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
+                      Dietary Restrictions:
+                    </p>
+                  </div>
+                  <div className=" flex items-center space-x-3">
+                    <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
+                      Enter the dietary restrictions3  you want to cook.
+                    </p>
+                  </div>
 
-              {/* Enter a paragraph */}
+                  {/* Enter a paragraph */}
 
-              <input
-                type="text"
-                value={dietary}
-                onChange={(e) => setDietary(e.target.value)}
-                className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
+                  <input
+                    type="text"
+                    value={dietary}
+                    onChange={(e) => setDietary(e.target.value)}
+                    className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
              placeholder-gray-700 placeholder-opacity-100 "
-                placeholder="Vegan, Vegetarian, Gluten Free, etc."
-              />
-              </div>
-              <div className="w-full">
-                <div className="mt-6 flex mb-2 items-center space-x-3">
-                  <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
-                   Cooking Time:
-                  </p>
+                    placeholder="Vegan, Vegetarian, Gluten Free, etc."
+                  />
                 </div>
-                <div className=" flex items-center space-x-3">
-                  <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
-                  Enter the cooking time you have to cook a meal.
-                  </p>
-                </div>
+                <div className="w-full">
+                  <div className="mt-6 flex mb-2 items-center space-x-3">
+                    <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
+                      Cooking Time:
+                    </p>
+                  </div>
+                  <div className=" flex items-center space-x-3">
+                    <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
+                      Enter the cooking time you have to cook a meal.
+                    </p>
+                  </div>
 
-                {/* Enter a paragraph */}
+                  {/* Enter a paragraph */}
 
-                <input
-                  type="text"
-                  value={cookingtime}
-                  onChange={(e) => setCookingtime(e.target.value)}
-                  className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
+                  <input
+                    type="text"
+                    value={cookingtime}
+                    onChange={(e) => setCookingtime(e.target.value)}
+                    className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
                  placeholder-gray-700 placeholder-opacity-100 "
-                  placeholder="30 minutes, 1 hour, 2 hours, etc."
-                />
-              </div>
+                    placeholder="30 minutes, 1 hour, 2 hours, etc."
+                  />
+                </div>
               </div>
             </div>
             {!loading && (
@@ -312,27 +307,42 @@ px-5 py-5 text-center mr-2 mb-2"
 
                   <div className="flex justify-left w-full  rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
                     <div className="space-y-8 flex flex-col items-center justify-center w-full mx-auto">
-                      <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
-                        {generatedBios
-                          .substring(generatedBios.indexOf("1") + 3)
-                          .split(/\d+\./)
-                          .map((generatedBio) => {
-                            return (
-                              <div
-                                className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                                onClick={() => {
-                                  navigator.clipboard.writeText(generatedBio);
-                                  toast("guideline copied to clipboard", {
-                                    icon: "✂️",
-                                  });
-                                }}
-                                key={generatedBio}
-                              >
-                                <p>{generatedBio}</p>
-                              </div>
-                            );
-                          })}
-                      </div>
+                    <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
+  {generatedBios
+    .split("Recipe ")
+    .map((generatedBio, index) => {
+      if (generatedBio.trim() === "") {
+        return null;
+      }
+      const recipeInfo = generatedBio.split("\n");
+      const recipeName = recipeInfo[0].trim();
+      const ingredientsList = recipeInfo[1].trim().replace("Ingredients:", "");
+      const cookingTime = recipeInfo[2].trim().replace("Cooking Time:", "");
+      const preparation = recipeInfo
+        .slice(3)
+        .map((step) => step.trim())
+        .filter((step) => step !== "")
+        .join("\n");
+      return (
+        <div
+          className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+          onClick={() => {
+            navigator.clipboard.writeText(generatedBio);
+            toast("guideline copied to clipboard", {
+              icon: "✂️",
+            });
+          }}
+          key={index}
+        >
+          <p><strong>Recipe Name:</strong> {recipeName}</p>
+          <p><strong>Ingredients:</strong> {ingredientsList}</p>
+          <p><strong>Cooking Time:</strong> {cookingTime}</p>
+          <p><strong>Preparation:</strong> {preparation}</p>
+        </div>
+      );
+    })}
+</div>
+
                     </div>
                   </div>
                 </>
