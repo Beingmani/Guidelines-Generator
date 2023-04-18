@@ -22,14 +22,14 @@ const features = [
       description:
         'Generate Color palettes for your respective app in seconds that are in compliance with ATSI commuities',
       icon: SwatchIcon,
-        link: 'https://guidelines-generator.vercel.app/colourgenerator',
+        link: 'https://guidelines-generator.vercel.app/colorgenerator',
     },
     {
       name: 'Persona generator',
       description:
         'generate personas for your respective app in seconds that are in compliance with ATSI commuities',
       icon: CakeIcon,
-    link: 'https://guidelines-generator.vercel.app/personagenerator'
+    link: 'https://guidelines-generator.vercel.app/Personagenerator'
       
     },
     {
