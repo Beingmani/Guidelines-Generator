@@ -16,6 +16,7 @@ const Home: NextPage = () => {
   const [vibe, setVibe] = useState("");
 
   const [generatedBios, setGeneratedBios] = useState<String>("");
+  const [showPainPoints, setShowPainPoints] = useState(false);
 
   const bioRef = useRef<null | HTMLDivElement>(null);
 
@@ -25,7 +26,7 @@ const Home: NextPage = () => {
     }
   };
 
-  const prompt = `Generate a set of  conversation between a Ux designer and an Aborignal User. Try to get to the conversation in such a way that you can able to analyse the pain points in the idea "${bio}". Lable the conversation as ux designer , user. Finally sumamrize the pain points using the lable pain points. Strictly note that you can ask converse with the aboriginal user only for 5 time and you need to converse in such a way that were able to get the pain points through conversations.${
+  const prompt = `Generate a set of  conversation between a Ux designer and an Aborignal User. Try to get to the conversation in such a way that you can able to analyse the pain points in the idea "${bio}". Lable the conversation as ux designer , user. Finally sumamrize the pain points using the lable pain points. Stricly ask driect question and gather as many as information and pain points within the limited conversation${
     bio.slice(-1) === "." ? "" : "."
   }`;
   console.log({
@@ -215,49 +216,99 @@ const Home: NextPage = () => {
                     </h2>
                   </div>
 
-                  <div className="flex justify-left w-full  rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
-                    <div className="space-y-8 flex flex-col items-center justify-center w-full mx-auto">
-                     
-                    <div className="space-y-8 flex flex-col w-full">
-  {generatedBios
-    .substring(generatedBios.indexOf("UX Designer"))
-    .split(/(UX Designer:|User:)/)
-    .map((generatedBio, index) => {
-      if (generatedBio === "" || generatedBio === " ") {
-        return null;
-      } else if (generatedBio === "UX Designer:") {
-        return null;
-      } else if (generatedBio === "User:") {
-        return null;
-      } else {
-        const speaker = generatedBio.match(/\b(UX Designer|User):\s*/)?.[1];
-       
-        console.log('Speaker',speaker);
-        const message = generatedBio.replace(/(UX Designer|User): /, "");
-        console.log('Message',message);
-      
+                  <div className="flex justify-left w-full rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
+                    <div className="space-y-8 flex flex-col items-center justify-center w-full ">
+                      <div className="space-y-8 flex flex-col items-center justify-center w-full ">
+                        {generatedBios
+                          .substring(generatedBios.indexOf("UX Designer"))
+                          .split("\n")
+                          .map((line, index) => {
+                            if (line === "" || line === " ") {
+                              return null;
+                            }
+                            const speaker = line.startsWith("UX Designer")
+                              ? "UX Designer"
+                              : line.startsWith("User")
+                              ? "User"
+                              : null;
+                            if (!speaker) {
+                              return null;
+                            }
+                            const message = line.replace(
+                              /(UX Designer|User): /,
+                              ""
+                            );
+                            return (
+                              <div
+                                key={index}
+                                className={`flex w-full ${
+                                  speaker === "UX Designer"
+                                    ? "justify-start"
+                                    : "justify-end"
+                                }`}
+                              >
+                                <div className="flex flex-column items-center ">
+                                  {speaker === "UX Designer" && (
+                                    <div className="h-10 w-11 p-1 bg-white rounded-full flex items-center justify-center">
+                                      <span role="img" aria-label="Designer">
+                                        👨‍🎨
+                                      </span>
+                                    </div>
+                                  )}
 
-        return (
-          <div
-            key={index}
-            className={`flex w-full ${
-              speaker === "UX Designer" ? 'justify-start' : "justify-end"
-            }`}
-          >
-            <div
-              className={`bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border ${
-                speaker === "UX Designer" ? "mr-4" : "ml-4"
-              }`}
-            >
-              <p>{message}</p>
-            </div>
-          </div>
-        );
-      }
-    })}
-</div>
+                                  <div
+                                    className={`rounded-xl w-full border-2 border-[#2F323B] shadow-md p-4 ${
+                                      speaker === "UX Designer"
+                                        ? "bg-[#2567dd]"
+                                        : "bg-[#1f2435]"
+                                    } ${
+                                      speaker === "UX Designer"
+                                        ? "text-white"
+                                        : "text-gray-400"
+                                    } ${
+                                      speaker === "UX Designer"
+                                        ? "ml-4"
+                                        : "mr-4"
+                                    }`}
+                                  >
+                                    <p>{message}</p>
+                                  </div>
 
+                                  {speaker === "User" && (
+                                    <div className="h-10 w-11 bg-white p-1 rounded-full flex items-center justify-center">
+                                      <span role="img" aria-label="User">
+                                        👤
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
 
+                        <div className="space-y-4 w-full">
+                          {generatedBios.indexOf("Pain Points:") >= 0 &&
+                            generatedBios
+                              .substring(
+                                generatedBios.indexOf("Pain Points:") + 13
+                              )
+                              .split(/\d+\./)
+                              .filter((point) => point.trim() !== "")
+                              .map((point, index) => (
+                                <div className="flex items-center" key={index}>
+                                  <span
+                                    role="img"
+                                    aria-label="Pain Point Emoji"
+                                  >
+                                    🙁
+                                  </span>
+                                  <div className="rounded-xl ml-2 text-gray-400 w-full font-regular text-lg shadow-sm bg-[#10131C] border-[#2F323B] p-4">
+                                    <p>{point.trim()}</p>
+                                  </div>
+                                </div>
+                              ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </>

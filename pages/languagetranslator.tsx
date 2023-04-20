@@ -494,8 +494,8 @@ px-5 py-5 text-center mr-2 mb-2"
                           .substring(generatedBios.indexOf("1") + 10)
                           .split(/\d+\./)
                           .map((generatedBio) => {
-                            const [original, translated, pr] =
-                              generatedBio.split(/Translated:|Pronunciation:/);
+                              const [original, translated, pr] =
+                                generatedBio.split(/Translated:|Pronunciation:/);
                             if (generatedBio.includes("AI language model")) {
                               return (
                                 <div className=" w-full" key={generatedBio}>
@@ -564,6 +564,7 @@ px-5 py-5 text-center mr-2 mb-2"
                                           </p>
                                         </div>
                                       )}
+                          
                                       <div className="flex flex-column">
                                         <button
                                           className="p-4 mr-4 bg-[#10131C] border-2 border-[#2F323B] text-sm indent-1 text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none flex items-center"
