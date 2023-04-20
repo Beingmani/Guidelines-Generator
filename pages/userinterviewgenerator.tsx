@@ -286,28 +286,34 @@ const Home: NextPage = () => {
                             );
                           })}
 
-                        <div className="space-y-4 w-full">
-                          {generatedBios.indexOf("Pain Points:") >= 0 &&
-                            generatedBios
-                              .substring(
-                                generatedBios.indexOf("Pain Points:") + 13
-                              )
-                              .split(/\d+\./)
-                              .filter((point) => point.trim() !== "")
-                              .map((point, index) => (
-                                <div className="flex items-center" key={index}>
-                                  <span
-                                    role="img"
-                                    aria-label="Pain Point Emoji"
-                                  >
-                                    🙁
-                                  </span>
-                                  <div className="rounded-xl ml-2 text-gray-400 w-full font-regular text-lg shadow-sm bg-[#10131C] border-[#2F323B] p-4">
-                                    <p>{point.trim()}</p>
-                                  </div>
-                                </div>
-                              ))}
-                        </div>
+<div className="flex justify-center w-full">
+          <button
+            className="rounded-lg bg-[#2567dd] text-white px-4 py-2 mt-4 hover:bg-blue-700"
+            onClick={() => setShowPainPoints(!showPainPoints)}
+          >
+            {showPainPoints ? "Hide Pain Points" : "Show Pain Points"}
+          </button>
+        </div>
+        {showPainPoints && (
+          <div className="space-y-4 w-full">
+            {generatedBios.indexOf("Pain Points:") >= 0 &&
+              generatedBios
+                .substring(generatedBios.indexOf("Pain Points:")+13)
+                .split("- ")
+                .filter((point) => point.trim() !== "")
+                .map((point, index) => (
+                  <div className="flex items-center" key={index}>
+                    <span role="img" aria-label="Pain Point Emoji">
+                      🙁
+                    </span>
+                    <div className="rounded-xl ml-2 text-gray-400 font-regular text-lg shadow-sm bg-[#10131C] border-[#2F323B] p-4">
+                      <p>{point.trim()}</p>
+                    </div>
+                  </div>
+                ))}
+          </div>
+        )}
+    
                       </div>
                     </div>
                   </div>
