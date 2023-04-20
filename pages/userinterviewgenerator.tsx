@@ -93,11 +93,10 @@ const Home: NextPage = () => {
                 🎨
               </div>
               <h1 className="text-5xl p-4 w-auto md:w-full font-bold text-center mb-4 bg-gradient-to-r from-purple-300 to-blue-400 bg-clip-text text-transparent bg-clip-text text-transparent">
-                Color Palette Generator
+               User Interview Generator
               </h1>
               <p className="text-xl font-light sm:text-2xl max-w-[708px] text-gray-300 text-center">
-                Generate amazing colors for your app in seconds with our AI
-                powered tool that are in compliance with ATSI communities.
+                Generate pain points based on user interview with AI based aboriginal communities.
               </p>
             </div>
           </section>
@@ -179,7 +178,7 @@ const Home: NextPage = () => {
                   px-5 py-5 text-center mr-2 mb-2"
                   onClick={(e) => generateBio(e)}
                 >
-                  Generate your colors 🤌🏻
+                  Generate your interview 🤌🏻
                 </button>
               </div>
             )}
@@ -212,7 +211,7 @@ const Home: NextPage = () => {
                       className="text-5xl p-4 w-auto md:w-full font-bold text-center mb-4 bg-gradient-to-r from-purple-300 to-blue-400 bg-clip-text text-transparent bg-clip-text text-transparent"
                       ref={bioRef}
                     >
-                      Your generated Colors
+                      Your generated Interview
                     </h2>
                   </div>
 
