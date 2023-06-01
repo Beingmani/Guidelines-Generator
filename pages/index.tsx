@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon ,ArrowPathIcon, BookOpenIcon,SwatchIcon,CakeIcon, LanguageIcon, UserGroupIcon} from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon ,ArrowPathIcon, BookOpenIcon,SwatchIcon,CakeIcon, LanguageIcon, UserGroupIcon, ComputerDesktopIcon} from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
 
 
@@ -38,6 +38,13 @@ const features = [
         'generate language for your respective words in seconds that are in compliance with ATSI commuities',
       icon: LanguageIcon,
       link: 'https://guidelines-generator.vercel.app/languagetranslator'
+    },
+    {
+      name: 'User interview generator',
+      description:
+        'generate interview with aboriginal people for your respective app in seconds that are in compliance with ATSI commuities',
+      icon: ComputerDesktopIcon,
+      link: 'https://guidelines-generator.vercel.app/userinterviewgenerator'
     },
   ]
 

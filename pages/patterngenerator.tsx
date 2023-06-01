@@ -8,6 +8,8 @@ import Footer from "../components/Footer";
 import LoadingDots from "../components/LoadingDots";
 import chroma from "chroma-js";
 import React, { Fragment } from "react";
+import html2canvas from "html2canvas";
+
 import { ClipboardIcon, RocketLaunchIcon } from "@heroicons/react/24/outline";
 
 const Home: NextPage = () => {
@@ -25,9 +27,19 @@ const Home: NextPage = () => {
     }
   };
 
-  const prompt = `Generate three different sets of primary, secondary, and tertiary color based 
-  on the description and category provided. Provide only the hex codes for the color of each set, l
-  abeled as Set 1., Set 2, Set 3. respectively. The description is '${bio}' and the category is '${vibe}'.${
+  function handleDownloadClick() {
+    console.log("Hello from download button");
+    const cpimage = document.querySelector("#cpImage");
+    if (cpimage instanceof HTMLElement) {
+      html2canvas(cpimage).then(function (canvas) {
+        const downloadLink = document.createElement("a");
+        downloadLink.download = "cpimage.png";
+        downloadLink.href = canvas.toDataURL("image/png");
+        downloadLink.click();
+      });
+    }
+  }
+  const prompt = `I need you to generate design pattern that are need to be included in the application with the description ${bio}.Layout the infroamtion such as Patterns like nav bar, profile card, language translator etc need to be added and lable them as 1. 2. Make sure the patterns are focussing mainly on aboriginal and torres strait islanders too. Give exactly 3 patterns with 2 line descrption statin whay they are important to torres strait islanders${
     bio.slice(-1) === "." ? "" : "."
   }`;
   console.log({
@@ -91,13 +103,13 @@ const Home: NextPage = () => {
                 contentEditable
                 className="bg-gray-900 rounded-full h-24 w-24 flex items-center justify-center mb-6 text-4xl text-white"
               >
-                🎨
+                📝
               </div>
               <h1 className="text-5xl p-4 w-auto md:w-full font-bold text-center mb-4 bg-gradient-to-r from-purple-300 to-blue-400 bg-clip-text text-transparent bg-clip-text text-transparent">
-                Color Palette Generator
+                Pattern generator
               </h1>
               <p className="text-xl font-light sm:text-2xl max-w-[708px] text-gray-300 text-center">
-                Generate amazing colors for your app in seconds with our AI
+                Generate patterns for your app in seconds with our AI
                 powered tool that are in compliance with ATSI communities.
               </p>
             </div>
@@ -132,7 +144,7 @@ const Home: NextPage = () => {
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 rows={4}
-                className="w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
+                className="w-full  rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
              placeholder-gray-700 placeholder-opacity-100 "
                 placeholder={
                   "App that helps users to share photos and intreact with other existing users."
@@ -140,47 +152,16 @@ const Home: NextPage = () => {
               />
             </div>
 
-            <div className="border-2 border-[#2F323B] p-8 rounded-xl">
-              <div className="flex items-center space-x-3">
-                <div
-                  contentEditable
-                  className="flex items-center justify-center text-xl text-left font-medium text-gray-300"
-                >
-                  Step - 2️⃣
-                </div>
-              </div>
-              <div className="mt-6 flex mb-2 items-center space-x-3">
-                <p className="text-left text-xl font-medium sm:text-2xl font-medium text-gray-300">
-                  App Category:
-                </p>
-              </div>
-              <div className=" flex items-center space-x-3">
-                <p className="text-left text-xl font-medium sm:text-xl font-light text-gray-500">
-                  Enter the category of the application
-                </p>
-              </div>
-
-              {/* Enter a paragraph */}
-
-              <input
-                type="text"
-                value={vibe}
-                onChange={(e) => setVibe(e.target.value)}
-                className=" w-full border-gray-300 rounded-xl text-white font-medium shadow-sm focus:border-[#2F323B] bg-[#10131C] border-2 border-[#2F323B]  mt-14
-             placeholder-gray-700 placeholder-opacity-100 "
-                placeholder="Social, Photo Sharing, Entertainment"
-              />
-            </div>
             {!loading && (
               <div className="flex justify-center p-24">
                 <button
                   type="button"
                   className=" text-white bg-gradient-to-r from-purple-400 to-blue-600 hover:bg-gradient-to-br focus:ring-4 
-                  focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm 
-                  px-5 py-5 text-center mr-2 mb-2"
+focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm 
+px-5 py-5 text-center mr-2 mb-2"
                   onClick={(e) => generateBio(e)}
                 >
-                  Generate your colors 🤌🏻
+                  Generate your patterns 🤌🏻
                 </button>
               </div>
             )}
@@ -199,7 +180,10 @@ const Home: NextPage = () => {
               reverseOrder={false}
               toastOptions={{ duration: 2000 }}
             />
-            <div className="inline-flex items-center justify-center w-full">
+            <div
+              
+              className="inline-flex items-center justify-center w-full"
+            >
               <hr className="w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
               <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 left-1/2 dark:text-white bg-[#040617]">
                 Limited Credits available, please use it appropriately :D
@@ -213,54 +197,42 @@ const Home: NextPage = () => {
                       className="text-5xl p-4 w-auto md:w-full font-bold text-center mb-4 bg-gradient-to-r from-purple-300 to-blue-400 bg-clip-text text-transparent bg-clip-text text-transparent"
                       ref={bioRef}
                     >
-                      Your generated Colors
+                      Your generated Patterns
                     </h2>
                   </div>
 
-                  <div className="flex justify-left w-full  rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
+                  <div id="cpImage" className="flex justify-left w-full  rounded-xl border-2 bg-[#040617] p-6 sm:p-12 border-[#2F323B]">
                     <div className="space-y-8 flex flex-col items-center justify-center w-full mx-auto">
-                      <div className="grid md:grid-cols-3 grid-cols-1 gap-4 place-items-start justify-items-stretch w-full">
+                      <div className=" flex flex-col items-center justify-center w-full">
+                        
+
+                       
+                        <div className="w-full grid grid-cols-2 gap-6">
                         {generatedBios
-                          .substring(generatedBios.indexOf("1") + 3)
-                          .split(/Set \d+:/)
-                          .map((generatedBio, i) => {
-                            const colorRegex =
-                              /#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})/g;
-                            const colors = generatedBios.match(colorRegex);
-                            const backgroundColor = colors
-                              ? colors[i % colors.length]
-                              : "#FFFFFF";
-                            const hexCodes = generatedBio.match(colorRegex);
-                            return (
-                              <div key={i}>
-                                <div className="grid rounded-[16px] text-white font-medium bg-[#10131C] border-2 border-[#2F323B] p-4 rounded grid-cols-3 gap-2">
-                                  {hexCodes &&
-                                    hexCodes.map((hex, j) => (
-                                        <div>
-                                      <div
-                                        key={j}
-                                        className=" rounded-xl h-36 shadow-md p-2 hover:bg-gray-100 transition cursor-copy"
-                                        style={{
-                                          backgroundColor: hex,
-                                        }}
-                                        onClick={() => {
-                                            navigator.clipboard.writeText(hex);
-                                            toast("color code copied to clipboard", {
-                                              icon: "✂️",
-                                            });
-                                          }}
-                                      >
-                                      </div>
-                                      <p className="text-white flex justify-center mt-4">{hex}</p>
-                                      </div>
-                                    ))}
-                                </div>
-                              </div>
-                            );
-                          })}
+                  .substring(generatedBios.indexOf("1") + 3)
+                  .split(/\d+\./)
+                  .map((generatedBio) => {
+                    return (
+                      <div
+                        className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                        onClick={() => {
+                          navigator.clipboard.writeText(generatedBio);
+                          toast("guideline copied to clipboard", {
+                            icon: "✂️",
+                          });
+                        }}
+                        key={generatedBio}
+                      >
+                        <p>{generatedBio}</p>
+                      </div>
+                    );
+                  })}
+                        </div>
                       </div>
                     </div>
                   </div>
+               
+                  <button className="p-4 bg-[#10131C] border-2 border-[#2F323B] text-sm indent-1 text-white rounded-xl hover:bg-[#040617] transition duration-200 focus:outline-none flex items-center" onClick={handleDownloadClick}>Download as PNG</button>
                 </>
               )}
             </div>
