@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon ,ArrowPathIcon, BookOpenIcon,SwatchIcon,CakeIcon, LanguageIcon, UserGroupIcon, ComputerDesktopIcon} from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon ,ArrowPathIcon, BookOpenIcon,SwatchIcon,CakeIcon, LanguageIcon, UserGroupIcon, ComputerDesktopIcon, PaperClipIcon} from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
 
 
@@ -45,6 +45,13 @@ const features = [
         'generate interview with aboriginal people for your respective app in seconds that are in compliance with ATSI commuities',
       icon: ComputerDesktopIcon,
       link: 'https://guidelines-generator.vercel.app/userinterviewgenerator'
+    },
+    {
+      name: 'Pattern generator',
+      description:
+        'generate patterns for your respective app in seconds that are in compliance with ATSI commuities',
+      icon: PaperClipIcon,
+      link: 'https://guidelines-generator.vercel.app/patterngenerator'
     },
   ]
 
